@@ -47,8 +47,18 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function getUniqueUsername($name)
+    public static function getUniqueUsername($name)
     {
         $username = '$' . str_replace(' ', '_', $name);
+
+        if(User::where('username', $username)->count() > 0){
+            $i = 110;
+
+            while(User::where('username', $username)->count() > 0){
+                $usename = '$' . str_replace(' ', '_', $name) . $i++;
+            }
+        }
+
+        return $username;
     }
 }
