@@ -52,12 +52,14 @@ class User extends Authenticatable
     {
         $username = '$' . str_replace(' ', '_', $name);
 
-        if(User::where('username', $username)->count() > 0){
+        if(User::where('username', $username)->first()){
             $i = 110;
 
-            while(User::where('username', $username)->count() > 0){
-                $usename = '$' . str_replace(' ', '_', $name) . $i++;
+            while(User::where('username', $username.$i)->first()){
+                $i++;
             }
+
+            $username = '$' . str_replace(' ', '_', $name) . $i;
         }
 
         return $username;

@@ -16,7 +16,7 @@ class UserController extends Controller
     {
         $users = User::all();
 
-        return response()->json(UserResource::collection($users), 200);
+        return $this->success(UserResource::collection($users));
     }
 
     /**
@@ -32,7 +32,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        
+        return $this->success(new UserResource($user));
     }
 
     /**
