@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\User\VerificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,9 +22,17 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::group(['prefix' => 'v1'], function(){ 
-    Route::post('/register', [AuthController::class, 'register'])->name('register');
-    Route::post('/login', [AuthController::class, 'login'])->name('login');
-    Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth:sanctum');
+    Route::controller(AuthController::class)->group(function() {
+        Route::post('/register', 'register')->name('register');
+        Route::post('/login', 'login')->name('login');
+        Route::post('/logout', 'logout')->name('logout')->middleware('auth:sanctum');
+    });
 
+    
+        Route::controller(VerificationController::class)->group(function() {
+            Route::get('/email/verify/{id}/{hash}','verify')->name('verification.verify')->middleware(['auth:sanctum', 'signed']);
+            Route::get('verify/send/email', 'sendVerificationMail')->name('send.verification.mail')->middleware('auth:sanctum');
+        });
+    
     Route::apiResource('users', UserController::class);
 });
