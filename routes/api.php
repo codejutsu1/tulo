@@ -4,7 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\User\UserController;
-use App\Http\Controllers\User\VerificationController;
+use App\Http\Controllers\Auth\VerificationController;
+use App\Http\Controllers\Auth\PasswordResetController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,17 +23,23 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::group(['prefix' => 'v1'], function(){ 
+    //Authentication
     Route::controller(AuthController::class)->group(function() {
         Route::post('/register', 'register')->name('register');
         Route::post('/login', 'login')->name('login');
         Route::post('/logout', 'logout')->name('logout')->middleware('auth:sanctum');
     });
-
     
-        Route::controller(VerificationController::class)->group(function() {
-            Route::get('/email/verify/{id}/{hash}','__invoke')->name('verification.verify')->middleware(['signed']);
-            Route::get('verify/send/email', 'sendVerificationMail')->name('send.verification.mail')->middleware('auth:sanctum');
-        });
+    Route::controller(VerificationController::class)->group(function() {
+        Route::get('/email/verify/{id}/{hash}','__invoke')->name('verification.verify')->middleware(['signed']);
+        Route::get('/verify/send/email', 'sendVerificationMail')->name('send.verification.mail')->middleware('auth:sanctum');
+    });
+
+    Route::controller(PasswordResetController::class)->group(function() {
+        Route::post('/forgot-password', 'forgotPassword')->name('password.request');
+        Route::get('/reset-password/{token}', 'resetPasswordToken')->name('password.reset');
+        Route::post('/reset-password', 'resetPassword')->name('password.update');
+    });
     
     Route::apiResource('users', UserController::class);
 });
