@@ -59,7 +59,9 @@ class User extends Authenticatable implements MustVerifyEmail
                 $i++;
             }
 
-            $username = '$' . str_replace(' ', '_', $name) . $i;
+            $username = $username . $i;
+
+            return $username;
         }
 
         return $username;

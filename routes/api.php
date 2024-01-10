@@ -30,7 +30,7 @@ Route::group(['prefix' => 'v1'], function(){
 
     
         Route::controller(VerificationController::class)->group(function() {
-            Route::get('/email/verify/{id}/{hash}','verify')->name('verification.verify')->middleware(['auth:sanctum', 'signed']);
+            Route::get('/email/verify/{id}/{hash}','__invoke')->name('verification.verify')->middleware(['signed']);
             Route::get('verify/send/email', 'sendVerificationMail')->name('send.verification.mail')->middleware('auth:sanctum');
         });
     
