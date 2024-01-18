@@ -25,6 +25,6 @@ class DatabaseSeeder extends Seeder
 
         User::truncate();
 
-        User::factory(2000)->create();
+        User::factory(1000)->create(); //Set to 2000 later, The migration is slow on my local machine.
     }
 }
