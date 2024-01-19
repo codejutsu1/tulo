@@ -7,7 +7,29 @@ class PhoneService {
     {
         $number = $this->formatNumber($number);
 
-        return $number;
+        if(strlen($number) != 11 || $number[0] != '0') return 'Wrong Phone Number Format';
+
+        $digit = substr($number, 0, 4);
+
+        $digit_2 = substr($number, 0, 5);
+
+        if(in_array($digit, $this->mtn()) || in_array($digit_2, $this->mtn())){
+            return 'MTN';
+        }
+
+        if(in_array($digit, $this->airtel())){
+            return 'Airtel';
+        }
+
+        if(in_array($digit, $this->glo())){
+            return 'Glo';
+        }
+
+        if(in_array($digit, $this->mobile_9())){
+            return '9mobile';
+        }
+
+        return "Not a Nigeria Number";
     }
 
     public function formatNumber($number) 
@@ -62,7 +84,7 @@ class PhoneService {
                     
             '0706', 
             
-            'o704'
+            '0704'
         ];
     }
 
