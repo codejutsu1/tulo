@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\Auth\PasswordResetController;
+use App\Http\Controllers\Network\FormatNumberController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +41,9 @@ Route::group(['prefix' => 'v1'], function(){
         Route::get('/reset-password/{token}', 'resetPasswordToken')->name('password.reset');
         Route::post('/reset-password', 'resetPassword')->name('password.update');
     });
+
+    //Phone Number Services
+    Route::post('/format-number', [FormatNumberController::class, 'index'])->name('format.number');
     
     Route::apiResource('users', UserController::class);
 });
