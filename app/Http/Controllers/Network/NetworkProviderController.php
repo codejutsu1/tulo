@@ -7,7 +7,7 @@ use App\Services\PhoneService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CheckNumberRequest;
 
-class FormatNumberController extends Controller
+class NetworkProviderController extends Controller
 {
     public function __construct(PhoneService $phoneService)
     {
@@ -16,8 +16,8 @@ class FormatNumberController extends Controller
 
     public function index(CheckNumberRequest $request)
     {
-        $formattedNumber = $this->phoneService->formatNumber($request->number);
+        $networkProvider = $this->phoneService->networkProvider($request->number);
 
-        return $this->success(['number' => $formattedNumber]); //09122233356
+        return $this->success(['networkProvider' => $networkProvider]);
     }
 }

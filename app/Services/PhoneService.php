@@ -12,45 +12,23 @@ class PhoneService {
 
     public function formatNumber($number) 
     {
-        $numberLength = strlen($number);
-
-        $response = $this->validateNumber($number);
-
-        if($response === true) {
-            if($numberLength == 10) {
-                return $number = '0' . $number;
-            }
-
-            return $number;
-        }
-
-        return $response;
-    }
-
-    private function validateNumber($number)
-    {
-        $message = 'Invalid Number';
-
         $number = (string) $number;
 
-        $code = substr($number, 0 ,4);
+        if(strlen($number) == 11 && $number[0] != '0') return 'Wrong Phone Number Format';
 
-        $numberLength = strlen($number);
+        if(strlen($number) > 11){
+            $code = substr($number, 0 ,4);
 
-        if($code === '+234') {
-           $number = substr($number, 4);
+            if($code != '+234') return 'This is not a Nigeria Number';
 
-
-           if($number[0] != 0) $number = '0' . $number;
-
-           if(strlen($number) != 11) return $message;
-
-           return $number;
+            $number = substr($number, 4);
         }
 
-        if($numberLength == 11 && $number[0] != '0') return $message ;
-    
-        return true;
+        if(strlen($number) == 10) {
+            $number = '0' . $number;
+        }
+
+        return $number;
     }
 
     private function mtn() 
