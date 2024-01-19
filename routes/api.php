@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\Airtime\AirtimeController;
 use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\Network\FormatNumberController;
@@ -46,6 +47,7 @@ Route::group(['prefix' => 'v1'], function(){
     //Phone Number Services
     Route::post('/format-number', [FormatNumberController::class, 'index'])->name('format.number');
     Route::post('/network-provider', [NetworkProviderController::class, 'index'])->name('network.provider');
-    
+
+    Route::post('/buy-airtime', [AirtimeController::class, 'store'])->name('buy.airtime');
     Route::apiResource('users', UserController::class);
 });
