@@ -13,7 +13,7 @@ class AirtimeService {
         $username = config('vtu.vtu_username');
         $password = config('vtu.vtu_password');
         $phone = $phoneService->formatNumber($request->phoneNumber);
-        $network_id = strtolower($phoneService->networkProvider($phone));
+        $network_id = $phoneService->networkProvider($phone);
 
         $response = Http::get('https://vtu.ng/wp-json/api/v1/airtime', [
             'username' => $username,

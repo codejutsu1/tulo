@@ -14,19 +14,19 @@ class PhoneService {
         $digit_2 = substr($number, 0, 5);
 
         if(in_array($digit, $this->mtn()) || in_array($digit_2, $this->mtn())){
-            return 'MTN';
+            return 'mtn';
         }
 
         if(in_array($digit, $this->airtel())){
-            return 'Airtel';
+            return 'airtel';
         }
 
         if(in_array($digit, $this->glo())){
-            return 'Glo';
+            return 'glo';
         }
 
         if(in_array($digit, $this->mobile_9())){
-            return '9mobile';
+            return 'etisalat';
         }
 
         return "Not a Nigeria Number";

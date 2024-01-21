@@ -15,4 +15,9 @@ class Data extends Model
         'plan',
         'price',
     ];
+
+    public function network()
+    {
+        return $this->belongsTo(Network::class);
+    }
 }

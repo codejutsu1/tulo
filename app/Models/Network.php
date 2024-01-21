@@ -12,4 +12,9 @@ class Network extends Model
     protected $fillable = [
         'network',
     ];
+
+    public function data()
+    {
+        return $this->hasMany(Data::class);
+    }
 }

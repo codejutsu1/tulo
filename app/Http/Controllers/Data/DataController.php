@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Data;
 
-use App\Http\Controllers\Controller;
+use App\Models\Data;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\DataResource;
 
 class DataController extends Controller
 {
@@ -12,7 +14,9 @@ class DataController extends Controller
      */
     public function index()
     {
-        //
+        $dataService = Data::all();
+
+        return $this->success(DataResource::collection($dataService));
     }
 
     /**
