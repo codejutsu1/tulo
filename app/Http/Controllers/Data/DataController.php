@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Data;
 
 use App\Models\Data;
 use Illuminate\Http\Request;
+use App\Services\DataService;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\DataResource;
+use App\Http\Requests\StoreDataRequest;
 
 class DataController extends Controller
 {
@@ -22,9 +24,13 @@ class DataController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        //
+    public function store(StoreDataRequest $request)
+    {   
+        $dataService = new DataService();
+        
+        $response = $dataService->buyData($request->validated());
+
+        return response()->json($response);
     }
 
     /**

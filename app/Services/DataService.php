@@ -1,148 +1,42 @@
-<?php
+<?php 
 
 namespace App\Services;
 
+use App\Traits\Vtu;
+use App\Models\Data;
+use App\Models\Network;
+use App\Services\PhoneService;
+use Illuminate\Support\Facades\Http;
+
+
 class DataService {
+    use Vtu;
 
-    public function getMtnData() {
-        return [ 
-            [
-                'network_id' => 1,
-                'variation_id' => '500',
-                'plan' => 'MTN Data 500MB - 30 Days',
-                'price' => 350
-            ],
-
-            [
-                'network_id' => 1,
-                'variation_id' => 'M1024',
-                'plan' => 'MTN Data 1GB - 30 Days',
-                'price' => 450
-            ],
-
-            [
-                'network_id' => 1,
-                'variation_id' => 'M2024',
-                'plan' => 'MTN Data 2GB - 30 Days',
-                'price' => 750
-            ],
-
-            [
-                'network_id' => 1,
-                'variation_id' => '3000',
-                'plan' => 'MTN Data 3GB - 30 Days',
-                'price' => 1050
-            ],
-
-            [
-                'network_id' => 1,
-                'variation_id' => '5000',
-                'plan' => 'MTN Data 5GB - 30 Days',
-                'price' => 1650
-            ],
-
-            [
-                'network_id' => 1,
-                'variation_id' => '10000',
-                'plan' => 'MTN Data 10GB - 30 Days',
-                'price' => 3500
-            ],
-
-            [
-                'network_id' => 1,
-                'variation_id' => 'mtn-20hrs-1500',
-                'plan' => 'MTN Data 6GB - 7 Days',
-                'price' => 1650
-            ],
-
-            [
-                'network_id' => 1,
-                'variation_id' => 'mtn-30gb-8000',
-                'plan' => 'MTN Data 30GB - 30 Days',
-                'price' => 1650
-            ],
-
-            [
-                'network_id' => 1,
-                'variation_id' => 'mtn-40gb-10000 ',
-                'plan' => 'MTN Data 5GB - 30 Days',
-                'price' => 1650
-            ],
-
-            [
-                'network_id' => 1,
-                'variation_id' => 'mtn-75gb-15000',
-                'plan' => 'MTN Data 5GB - 30 Days',
-                'price' => 1650
-            ],
-        ];
-    }
-
-    public function getAirtelData()
+    public function buyData($request)
     {
-        return [
-            [
-                'network_id' => 2,
-                'variation_id' => 'AIRTEL500MB',
-                'plan' => 'Airtel Data 500MB - 30 Days',
-                'price' => '300'
-            ],
+        $phoneService = new PhoneService();
+        $phoneNumber = $request['phoneNumber'];
+        $variation_id = $request['variation_id'];
 
-            [
-                'network_id' => 2,
-                'variation_id' => 'airt-330x',
-                'plan' => 'Airtel Data 1GB - 1 Day',
-                'price' => '345'
-            ],
+        $phoneNumber = $phoneService->formatNumber($phoneNumber);
+        $network_provider = $phoneService->networkProvider($phoneNumber);
 
-            [
-                'network_id' => 2,
-                'variation_id' => 'airt-1650-2',
-                'plan' => 'Airtel Data 6GB - 7 Days',
-                'price' => '300'
-            ],
+        $network = Network::with('data')->where('network', $network_provider)->first();
 
-            [
-                'network_id' => 2,
-                'variation_id' => 'AIRTEL1GB',
-                'plan' => 'Airtel Data 1GB - 30 Days',
-                'price' => '450'
-            ],
+        $variations = $network->data->pluck('variation_id')->toArray();
 
-            [
-                'network_id' => 2,
-                'variation_id' => 'AIRTEL2GB',
-                'plan' => 'Airtel Data 2GB - 30 Days',
-                'price' => '650'
-            ],
+        if(!in_array($variation_id, $variations)){
+            return "The number doesn't match the network provider of this service";
+        }
 
-            [
-                'network_id' => 2,
-                'variation_id' => 'AIRTEL5GB',
-                'plan' => 'Airtel Data 5GB - 30 Days',
-                'price' => '1450'
-            ],
+        $response = Http::get('https://vtu.ng/wp-json/api/v1/data', [
+            'username' => $this->username(),
+            'password' => $this->password(),
+            'phone' => $phoneNumber,
+            'network_id' => $network_provider,
+            'variation_id' => $variation_id 
+        ]);
 
-            [
-                'network_id' => 2,
-                'variation_id' => 'AIRTEL10GB',
-                'plan' => 'Airtel Data 10GB - 30 Days',
-                'price' => '2650'
-            ],
-
-            [
-                'network_id' => 2,
-                'variation_id' => 'AIRTEL15GB',
-                'plan' => 'Airtel Data 15GB - 30 Days',
-                'price' => '3850'
-            ],
-
-            [
-                'network_id' => 2,
-                'variation_id' => 'AIRTEL20GB',
-                'plan' => 'Airtel Data 20GB - 30 Days',
-                'price' => '5000'
-            ]
-        ];
+        return $response->json();
     }
 }

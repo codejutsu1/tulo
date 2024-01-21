@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CheckNumberRequest extends FormRequest
+class StoreDataRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,7 +22,8 @@ class CheckNumberRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'phoneNumber' => 'required|min:10'
+            'phoneNumber' => 'required|min:10',
+            'variation_id' => 'required|string'
         ];
     }
 }

@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Data;
-use App\Services\DataService;
+use App\Services\DataArrayService;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
@@ -16,7 +16,7 @@ class DataSeeder extends Seeder
     {
         Data::truncate();
 
-        $dataService = new DataService();
+        $dataService = new DataArrayService();
 
         foreach($dataService->getMtnData() as $data){
             Data::create($data);
