@@ -48,6 +48,6 @@ Route::group(['prefix' => 'v1'], function(){
     Route::post('/format-number', [FormatNumberController::class, 'index'])->name('format.number');
     Route::post('/network-provider', [NetworkProviderController::class, 'index'])->name('network.provider');
 
-    Route::post('/buy-airtime', [AirtimeController::class, 'store'])->name('buy.airtime');
+    Route::apiResource('airtimes', AirtimeController::class);
     Route::apiResource('users', UserController::class);
 });

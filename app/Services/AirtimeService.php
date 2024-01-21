@@ -3,28 +3,26 @@
 namespace App\Services;
 
 use Illuminate\Http\Request;
+use App\Services\PhoneService;
 use Illuminate\Support\Facades\Http;
 
 class AirtimeService {
-
-    public function __construct(PhoneService $phoneService)
+    public function buyAirtime(Request $request)
     {
-        $this->phoneService = $phoneService;
-    }
-
-    public static function buyAirtime(Request $request)
-    {
+        $phoneService = new PhoneService();
         $username = config('vtu.vtu_username');
         $password = config('vtu.vtu_password');
-        $phone = $this->phoneService->formatNumber($request->number);
-        $network_id = $this->phoneService->networkProvider($request->number);
+        $phone = $phoneService->formatNumber($request->phoneNumber);
+        $network_id = strtolower($phoneService->networkProvider($phone));
 
         $response = Http::get('https://vtu.ng/wp-json/api/v1/airtime', [
             'username' => $username,
-            'password' => $password
+            'password' => $password,
             'phone' => $phone,
             'network_id' => $network_id,
             'amount' => $request->amount,
         ]); 
+
+        return $response->json();
     }
 }
