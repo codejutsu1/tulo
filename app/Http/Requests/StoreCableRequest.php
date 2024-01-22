@@ -24,7 +24,8 @@ class StoreCableRequest extends FormRequest
         return [
             'smartcard_number' => 'required|string',
             'service_id' => 'required|string', //dstv, startimes, gotv
-            // 'variation_id' => 'required'
+            'variation_id' => 'required',
+            'phoneNumber' => 'required|min:10'
         ];
     }
 }

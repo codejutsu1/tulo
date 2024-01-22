@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Data\DataController;
 use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\Cable\CableController;
 use App\Http\Controllers\Airtime\AirtimeController;
 use App\Http\Controllers\Data\DataNetworkController;
 use App\Http\Controllers\Auth\VerificationController;
@@ -54,6 +55,7 @@ Route::group(['prefix' => 'v1'], function(){
     Route::apiResource('airtimes', AirtimeController::class);
     Route::apiResource('users', UserController::class);
     Route::apiResource('data', DataController::class);
+    Route::apiResource('cables', CableController::class);
 
     Route::post('data-network', [DataNetworkController::class, 'index'])->name('data.network');
 
