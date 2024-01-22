@@ -20,11 +20,19 @@ class PackageSeeder extends Seeder
 
         foreach($utility->getMtnPlan() as $data){
             $data['profit'] = $data['price'] - $data['original_price'];
-             
+
             Package::create($data);
         }
 
         foreach($utility->getAirtelPlan() as $data){
+            $data['profit'] = $data['price'] - $data['original_price'];
+            
+            Package::create($data);
+        }
+
+        foreach($utility->getGotvPlan() as $data){
+            $data['profit'] = $data['price'] - $data['original_price'];
+            
             Package::create($data);
         }
     }
