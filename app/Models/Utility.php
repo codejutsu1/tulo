@@ -5,16 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Network extends Model
+class Utility extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'network',
+        'name',
     ];
-
-    public function data()
-    {
-        return $this->hasMany(Data::class);
-    }
 }
