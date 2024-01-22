@@ -13,14 +13,22 @@ class UtilitySeeder extends Seeder
      */
     public function run(): void
     {
-        $utilities = [
+        Utility::truncate();
+        
+        $data = [
             'mtn',
             'airtel',
             'etisalat',
             'glo',
+        ];
+
+        $cables = [
             'gotv',
             'dstv',
             'startimes',
+        ];
+
+        $utilities = [
             'abuja-electric',
             'eko-electric',
             'ibadan-electric',
@@ -31,8 +39,25 @@ class UtilitySeeder extends Seeder
             'portharcourt-electric',
         ];
 
+        foreach($data as $dat){
+            Utility::create([
+                'group_id' => 1,
+                'name' => $data
+            ]);
+        }
+
+        foreach($cables as $cable){
+            Utility::create([
+                'group_id' => 2,
+                'name' => $cable,
+            ]);
+        }
+
         foreach($utilities as $utility){
-            Utility::create(['name' => $utility]);
+            Utility::create([
+                'group_id' => 3,
+                'name' => $utility,
+            ]);
         }
     }
 }
