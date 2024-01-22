@@ -2,9 +2,9 @@
 
 namespace App\Services;
 
-class DataArrayService {
+class UtilityService {
 
-    public function getMtnData() {
+    public function getMtnPlan() {
         return [ 
             [
                 'network_id' => 1,
@@ -78,7 +78,7 @@ class DataArrayService {
         ];
     }
 
-    public function getAirtelData()
+    public function getAirtelPlan()
     {
         return [
             [
