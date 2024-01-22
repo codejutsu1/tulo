@@ -2,10 +2,17 @@
 
 namespace App\Http\Controllers\Package;
 
-use App\Http\Controllers\Controller;
+use App\Models\Package;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\PackageResource;
 
 class PackageController extends Controller
 {
-    //
+    public function index()
+    {
+        $packages = Package::all();
+
+        return $this->success(PackageResource::collection($packages));
+    }
 }

@@ -16,7 +16,7 @@ class DataController extends Controller
      */
     public function index()
     {
-        $dataService = Data::all();
+        $dataPackages = Package::all();
 
         return $this->success(DataResource::collection($dataService));
     }

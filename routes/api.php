@@ -7,6 +7,7 @@ use App\Http\Controllers\Data\DataController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Cable\CableController;
 use App\Http\Controllers\Airtime\AirtimeController;
+use App\Http\Controllers\Package\PackageController;
 use App\Http\Controllers\Data\DataNetworkController;
 use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\Auth\PasswordResetController;
@@ -60,4 +61,6 @@ Route::group(['prefix' => 'v1'], function(){
     Route::post('data-network', [DataNetworkController::class, 'index'])->name('data.network');
 
     Route::post('verify-cable-user', [VerifyCableUserController::class, 'store'])->name('verify.cable.user');
+
+    Route::get('/packages', [PackageController::class, 'index'])->name('packages');
 });
