@@ -14,7 +14,7 @@ class PackageSeeder extends Seeder
      */
     public function run(): void
     {
-        Package::truncate();
+        // Package::truncate();
 
         $utility = new UtilityService();
 

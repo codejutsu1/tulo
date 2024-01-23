@@ -13,7 +13,7 @@ class UtilitySeeder extends Seeder
      */
     public function run(): void
     {
-        Utility::truncate();
+        // Utility::truncate();
         
         $data = [
             'mtn',
@@ -42,7 +42,7 @@ class UtilitySeeder extends Seeder
         foreach($data as $dat){
             Utility::create([
                 'group_id' => 1,
-                'name' => $data
+                'name' => $dat
             ]);
         }
 

@@ -13,12 +13,16 @@ class GroupSeeder extends Seeder
      */
     public function run(): void
     {
-        Group::truncate();
+        // Group::truncate();
         
         $groups = [
             'data',
             'cable',
             'utility',
         ];
+
+        foreach($groups as $group){
+            Group::create(['name' => $group]);
+        }
     }
 }
