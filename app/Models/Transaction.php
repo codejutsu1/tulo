@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Transaction extends Model
 {
-    use HasFactory;
+    use HasFactory, HasUuids;
 
     protected $fillable =  [
         'user_id',
@@ -25,4 +26,9 @@ class Transaction extends Model
         'smartcard_number',
         'description'
     ];
+
+    public function uniqueIds(): array
+    {
+        return ['identifier'];
+    }
 }
