@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Airtime;
 
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 use App\Services\AirtimeService;
 use App\Http\Controllers\Controller;
@@ -17,9 +18,47 @@ class AirtimeController extends Controller
 
     public function store(StoreAirtimeRequest $request)
     {
-        $response = (new AirtimeService)->buyAirtime($request);
+        $airtimeService = new AirtimeService();
 
-        return response()->json($response);
+        $response = $airtimeService->buyAirtime($request);
+
+        // return $response['code'];
+
+        $test_reponse = '{
+            "code":"success",
+            "message":"Airtime successfully delivered",
+            "data":{
+                "network":"MTN",
+                "phone":"07045461790",
+                "amount":"NGN2000",
+                "order_id":"3100"
+            }
+        }'; 
+
+        $test= json_decode($test_reponse, true);
+
+        $price = (integer) str_replace('NGN', '', $test['data']['amount']);
+
+        $original_price = $airtimeService->originalPrice($price, $test['data']['network']);
+
+        $profit = $airtimeService->profit($original_price, $price);
+
+        if($test['code'] == 'success'){
+            $transaction = Transaction::create([
+                'user_id' => 1,
+                'status' => $test['code'],
+                'message' => $test['message'],
+                'network' => $test['data']['network'],
+                'phone' => $test['data']['phone'],
+                'original_price' => $original_price,
+                'profit' => $profit,
+                'amount' => $price,
+                'data_plan' => 'airtime',
+                'order_id' => $test['data']['order_id']
+            ]);
+
+            return $transaction;
+        }
     }
 
     /**

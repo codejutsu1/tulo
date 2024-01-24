@@ -17,6 +17,7 @@ class Transaction extends Model
         'status',
         'message',
         'phone',
+        'network',
         'amount',
         'original_price',
         'profit',

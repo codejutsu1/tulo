@@ -15,13 +15,14 @@ return new class extends Migration
             $table->id();
             $table->uuid('identifier');
             $table->foreignId('user_id')->constrained();
-            $table->foreignId('package_id')->constrained();
+            $table->foreignId('package_id')->nullable()->constrained();
             $table->string('order_id');
             $table->string('status');
             $table->string('message');
             $table->string('phone');
+            $table->string('network')->nullable();
             $table->integer('amount');
-            $table->integer('original_price'); //amount Charged
+            $table->integer('original_price'); //includes amount Charged
             $table->integer('profit');
             $table->string('data_plan')->nullable();
             $table->string('cable_tv')->nullable();
