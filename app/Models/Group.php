@@ -12,4 +12,14 @@ class Group extends Model
     protected $fillable = [
         'name',
     ];
+
+    public function utilities()
+    {
+        return $this->hasMany(Utility::class);
+    }
+
+    public function packages()
+    {
+        return $this->hasManyThrough(Package::class, Utility::class);
+    }
 }

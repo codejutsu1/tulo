@@ -13,4 +13,9 @@ class Utility extends Model
         'group_id',
         'name',
     ];
+
+    public function group()
+    {
+        return $this->belongsTo(Group::class);
+    }
 }

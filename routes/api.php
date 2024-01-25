@@ -53,7 +53,7 @@ Route::group(['prefix' => 'v1'], function(){
     Route::post('/format-number', [FormatNumberController::class, 'index'])->name('format.number');
     Route::post('/network-provider', [NetworkProviderController::class, 'index'])->name('network.provider');
 
-    Route::apiResource('airtimes', AirtimeController::class);
+    Route::apiResource('airtimes', AirtimeController::class)->only(['store']);
     Route::apiResource('users', UserController::class);
     Route::apiResource('data', DataController::class);
     Route::apiResource('cables', CableController::class);

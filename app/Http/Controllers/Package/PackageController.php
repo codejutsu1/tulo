@@ -15,4 +15,9 @@ class PackageController extends Controller
 
         return $this->success(PackageResource::collection($packages));
     }
+
+    public function show(Package $package)
+    {
+        return $this->success(PackageResource::collection($package));
+    }
 }

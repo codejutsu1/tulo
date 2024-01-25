@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers\Data;
 
-use App\Models\Data;
+use App\Models\Group;
+use App\Models\Package;
 use Illuminate\Http\Request;
 use App\Services\DataService;
 use App\Http\Controllers\Controller;
@@ -16,9 +17,9 @@ class DataController extends Controller
      */
     public function index()
     {
-        $dataPackages = Package::all();
+        $data = Group::with('packages')->where('name', 'data')->first();
 
-        return $this->success(DataResource::collection($dataService));
+        return $this->success(DataResource::collection($data->packages));
     }
 
     /**
@@ -38,7 +39,9 @@ class DataController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $package = Utility::with('')
+
+        return $package;
     }
 
     /**
