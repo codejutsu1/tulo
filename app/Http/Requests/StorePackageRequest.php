@@ -22,7 +22,12 @@ class StorePackageRequest extends FormRequest
     public function rules(): array
     {
         return [
-            
+            'utility' => 'required|string',
+            'variation_id' => 'required',
+            'plan' => 'required|string',
+            'original_price' => 'required|integer',
+            'price' => 'required|integer',
+            'service_id' => 'string',
         ];
     }
 }

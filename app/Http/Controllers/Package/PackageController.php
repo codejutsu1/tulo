@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Package;
 
 use App\Models\Package;
 use Illuminate\Http\Request;
+use App\Services\PackageService;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\PackageResource;
+use App\Http\Requests\StorePackageRequest;
 
 class PackageController extends Controller
 {
@@ -18,7 +20,11 @@ class PackageController extends Controller
 
     public function store(StorePackageRequest $request)
     {
-        
+        $packageService = new PackageService();
+
+        $response = $packageService->storePackage($request->validated());
+
+        return $response;
     }
 
     public function show(Package $package)
@@ -26,5 +32,4 @@ class PackageController extends Controller
         return $this->success(new PackageResource($package));
     }
 
-    public function 
 }

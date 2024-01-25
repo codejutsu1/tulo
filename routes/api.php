@@ -6,8 +6,10 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Data\DataController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Cable\CableController;
+use App\Http\Controllers\Group\GroupController;
 use App\Http\Controllers\Airtime\AirtimeController;
 use App\Http\Controllers\Package\PackageController;
+use App\Http\Controllers\Utility\UtilityController;
 use App\Http\Controllers\Data\DataNetworkController;
 use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\Auth\PasswordResetController;
@@ -63,4 +65,7 @@ Route::group(['prefix' => 'v1'], function(){
     Route::post('verify-cable-user', [VerifyCableUserController::class, 'store'])->name('verify.cable.user');
 
     Route::apiResource('packages', PackageController::class);
+
+    Route::get('/utilities', [UtilityController::class, 'index'])->name('utility');
+    Route::get('/groups', [GroupController::class, 'index'])->name('group');
 });
