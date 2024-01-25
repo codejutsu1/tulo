@@ -62,5 +62,5 @@ Route::group(['prefix' => 'v1'], function(){
 
     Route::post('verify-cable-user', [VerifyCableUserController::class, 'store'])->name('verify.cable.user');
 
-    Route::get('/packages', [PackageController::class, 'index'])->name('packages');
+    Route::apiResource('packages', PackageController::class);
 });

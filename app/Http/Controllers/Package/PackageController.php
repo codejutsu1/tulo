@@ -16,8 +16,15 @@ class PackageController extends Controller
         return $this->success(PackageResource::collection($packages));
     }
 
+    public function store(StorePackageRequest $request)
+    {
+        
+    }
+
     public function show(Package $package)
     {
-        return $this->success(PackageResource::collection($package));
+        return $this->success(new PackageResource($package));
     }
+
+    public function 
 }
