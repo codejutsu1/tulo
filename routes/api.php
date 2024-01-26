@@ -9,6 +9,7 @@ use App\Http\Controllers\Cable\CableController;
 use App\Http\Controllers\Group\GroupController;
 use App\Http\Controllers\Airtime\AirtimeController;
 use App\Http\Controllers\Package\PackageController;
+use App\Http\Controllers\Payment\PaymentController;
 use App\Http\Controllers\Utility\UtilityController;
 use App\Http\Controllers\Data\DataNetworkController;
 use App\Http\Controllers\Auth\VerificationController;
@@ -71,4 +72,6 @@ Route::group(['prefix' => 'v1'], function(){
     Route::get('/groups', [GroupController::class, 'index'])->name('group');
 
     Route::apiResource('/transactions', TransactionController::class)->only(['index', 'show']);
+
+    Route::get('/payment-callback', [PaymentController::class, 'handleGatewayCallback'])->name('payment.callback');
 });

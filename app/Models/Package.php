@@ -18,4 +18,9 @@ class Package extends Model
         'service_id',
         'profit'
     ];
+
+    public function utility()
+    {
+        return $this->belongsTo(Utility::class);
+    }
 }

@@ -18,4 +18,9 @@ class Utility extends Model
     {
         return $this->belongsTo(Group::class);
     }
+
+    public function packages()
+    {
+        return $this->hasMany(Package::class);
+    }
 }

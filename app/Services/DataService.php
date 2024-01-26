@@ -3,9 +3,9 @@
 namespace App\Services;
 
 use App\Traits\Vtu;
-use App\Models\Data;
-use App\Models\Network;
+use App\Models\Utility;
 use App\Services\PhoneService;
+use App\Services\PaymentService;
 use Illuminate\Support\Facades\Http;
 
 
@@ -21,15 +21,19 @@ class DataService {
         $phoneNumber = $phoneService->formatNumber($phoneNumber);
         $network_provider = $phoneService->networkProvider($phoneNumber);
 
-        $network = Network::with('data')->where('network', $network_provider)->first();
+        $network = Utility::with('packages')->where('name',$network_provider)->first();
 
-        $variations = $network->data->pluck('variation_id')->toArray();
+        $variations = $network->packages->pluck('variation_id')->toArray();
 
         if(!in_array($variation_id, $variations)){
             return "The number doesn't match the network provider of this service";
         }
 
-        $amount = Packages::where('variation_id', $variation_id)->value('amount');
+        $paymentService = new PaymentService();
+
+        $paymentResponse = $paymentService->redirectToGateway();
+
+        dd($paymentResponse->url);
 
         $response = Http::get('https://vtu.ng/wp-json/api/v1/data', [
             'username' => $this->username(),

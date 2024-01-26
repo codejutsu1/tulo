@@ -39,9 +39,7 @@ class DataController extends Controller
      */
     public function show(string $id)
     {
-        $package = Utility::with('')
-
-        return $package;
+        //
     }
 
     /**
