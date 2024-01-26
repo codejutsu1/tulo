@@ -31,7 +31,7 @@ class DataController extends Controller
         
         $response = $dataService->buyData($request->validated());
 
-        return response()->json($response);
+        return $response;
     }
 
     /**

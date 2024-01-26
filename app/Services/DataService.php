@@ -29,6 +29,8 @@ class DataService {
             return "The number doesn't match the network provider of this service";
         }
 
+        $amount = Packages::where('variation_id', $variation_id)->value('amount');
+
         $response = Http::get('https://vtu.ng/wp-json/api/v1/data', [
             'username' => $this->username(),
             'password' => $this->password(),
