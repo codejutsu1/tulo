@@ -8,6 +8,7 @@ use App\Services\PackageService;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\PackageResource;
 use App\Http\Requests\StorePackageRequest;
+use App\Http\Requests\UpdatePackageRequest;
 
 class PackageController extends Controller
 {
@@ -29,7 +30,20 @@ class PackageController extends Controller
 
     public function show(Package $package)
     {
-        return $this->success(new PackageResource($package));
+        return $this->success($package);
+    }
+    
+    public function update(UpdatePackageRequest $request, Package $package)
+    {
+        $package->update($request->validated());
+
+        return $this->success($package);
     }
 
+    public function destroy(Package $package)
+    {
+        $package->delete();
+
+        return $package;
+    }
 }
