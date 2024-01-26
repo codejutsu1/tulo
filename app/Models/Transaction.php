@@ -28,6 +28,11 @@ class Transaction extends Model
         'description'
     ];
 
+    public function getRouteKeyName()
+    {
+        return 'identifier';
+    }
+
     public function uniqueIds(): array
     {
         return ['identifier'];

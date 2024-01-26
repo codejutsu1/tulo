@@ -16,6 +16,7 @@ use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\Network\FormatNumberController;
 use App\Http\Controllers\Cable\VerifyCableUserController;
 use App\Http\Controllers\Network\NetworkProviderController;
+use App\Http\Controllers\Transaction\TransactionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -68,4 +69,6 @@ Route::group(['prefix' => 'v1'], function(){
 
     Route::get('/utilities', [UtilityController::class, 'index'])->name('utility');
     Route::get('/groups', [GroupController::class, 'index'])->name('group');
+
+    Route::apiResource('/transactions', TransactionController::class)->only(['index', 'show']);
 });
