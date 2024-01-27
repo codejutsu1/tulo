@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Airtime;
 
+use App\Mail\VtuError;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use App\Services\AirtimeService;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\StoreAirtimeRequest;
 
 class AirtimeController extends Controller
@@ -22,7 +24,14 @@ class AirtimeController extends Controller
 
         $response = $airtimeService->buyAirtime($request);
 
-        // return $response['code'];
+        if($response['code'] === 'failure') {
+            if(str_contains($response['message'], 'wallet balance') && str_contains($response['message'], 'insufficient')) {
+                Mail::to('codejutsu@protonmail.com')->send(new VtuError($response['message']));
+                
+                return $this->message('Something went wrong, contact the Admin.', 500);
+            } 
+            dd('you didnt do anything.');
+        }
 
         $test_reponse = '{
             "code":"success",
@@ -43,22 +52,22 @@ class AirtimeController extends Controller
 
         $profit = $airtimeService->profit($original_price, $price);
 
-        if($test['code'] == 'success'){
-            $transaction = Transaction::create([
-                'user_id' => 1,
-                'status' => $test['code'],
-                'message' => $test['message'],
-                'network' => $test['data']['network'],
-                'phone' => $test['data']['phone'],
-                'original_price' => $original_price,
-                'profit' => $profit,
-                'amount' => $price,
-                'data_plan' => 'airtime',
-                'order_id' => $test['data']['order_id']
-            ]);
+        // if($test['code'] == 'success'){
+        //     $transaction = Transaction::create([
+        //         'user_id' => 1,
+        //         'status' => $test['code'],
+        //         'message' => $test['message'],
+        //         'network' => $test['data']['network'],
+        //         'phone' => $test['data']['phone'],
+        //         'original_price' => $original_price,
+        //         'profit' => $profit,
+        //         'amount' => $price,
+        //         'data_plan' => 'airtime',
+        //         'order_id' => $test['data']['order_id']
+        //     ]);
 
-            return $transaction;
-        }
+        //     return $transaction;
+        // }
     }
 
     /**

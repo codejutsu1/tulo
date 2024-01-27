@@ -16,15 +16,15 @@ class AirtimeService {
         $phone = $phoneService->formatNumber($request->phoneNumber);
         $network_id = $phoneService->networkProvider($phone);
 
-        // $response = Http::get('https://vtu.ng/wp-json/api/v1/airtime', [
-        //     'username' => $this->username(),
-        //     'password' => $this->password(),
-        //     'phone' => $phone,
-        //     'network_id' => $network_id,
-        //     'amount' => $request->amount,
-        // ]); 
+        $response = Http::get('https://vtu.ng/wp-json/api/v1/airtime', [
+            'username' => $this->username(),
+            'password' => $this->password(),
+            'phone' => $phone,
+            'network_id' => $network_id,
+            'amount' => $request->amount,
+        ]); 
 
-        // return $response->json();
+        return $response->json();
     }
 
     public function originalPrice($price, $network=null)

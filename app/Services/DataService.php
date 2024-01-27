@@ -3,22 +3,27 @@
 namespace App\Services;
 
 use App\Traits\Vtu;
+use App\Models\Package;
 use App\Models\Utility;
+use App\Traits\HttpResponses;
 use App\Services\PhoneService;
 use App\Services\PaymentService;
 use Illuminate\Support\Facades\Http;
 
 
 class DataService {
-    use Vtu;
+    use Vtu, HttpResponses;
 
     public function buyData($request)
     {
-        $phoneService = new PhoneService();
         $phoneNumber = $request['phoneNumber'];
+
         $variation_id = $request['variation_id'];
 
+        $phoneService = new PhoneService();
+
         $phoneNumber = $phoneService->formatNumber($phoneNumber);
+
         $network_provider = $phoneService->networkProvider($phoneNumber);
 
         $network = Utility::with('packages')->where('name',$network_provider)->first();
@@ -26,23 +31,29 @@ class DataService {
         $variations = $network->packages->pluck('variation_id')->toArray();
 
         if(!in_array($variation_id, $variations)){
-            return "The number doesn't match the network provider of this service";
+            return $this->error("The number doesn't match the network provider of this service", 404);
         }
+
+        $amount = Package::where('variation_id', $variation_id)->value('price');
+
+        $data = [
+            'amount' => $amount * 100,
+            'reference' => paystack()->genTranxRef(),
+            'email' => 'danieldunu001@gmail.com', //Authenticated User
+            'currency' => 'NGN',
+            'callback_url' => route('payment.callback'),
+            'metadata' => [
+                'service' => 'data',
+                'phone' => $phoneNumber,
+                'network' =>  $network_provider,
+                'variation_id' => $variation_id,
+            ],
+        ];
 
         $paymentService = new PaymentService();
 
-        $paymentResponse = $paymentService->redirectToGateway();
+        $paymentResponse = $paymentService->redirectToGateway($data);
 
-        dd($paymentResponse->url);
-
-        $response = Http::get('https://vtu.ng/wp-json/api/v1/data', [
-            'username' => $this->username(),
-            'password' => $this->password(),
-            'phone' => $phoneNumber,
-            'network_id' => $network_provider,
-            'variation_id' => $variation_id 
-        ]);
-
-        return $response->json();
+        return $this->success(['paymentUrl' => $paymentResponse->url]);
     }
 }
