@@ -10,21 +10,31 @@ use Illuminate\Support\Facades\Http;
 class AirtimeService {
     use Vtu;
     
-    public function buyAirtime(Request $request)
+    public function buyAirtime($request)
     {
         $phoneService = new PhoneService();
-        $phone = $phoneService->formatNumber($request->phoneNumber);
+        $phone = $phoneService->formatNumber($request['phoneNumber']);
         $network_id = $phoneService->networkProvider($phone);
 
-        $response = Http::get('https://vtu.ng/wp-json/api/v1/airtime', [
-            'username' => $this->username(),
-            'password' => $this->password(),
-            'phone' => $phone,
-            'network_id' => $network_id,
-            'amount' => $request->amount,
-        ]); 
 
-        return $response->json();
+        $data = [
+            'amount' => $request['amount'] * 100,
+            'reference' => paystack()->genTranxRef(),
+            'email' => 'danieldunu001@gmail.com', //Authenticated User
+            'currency' => 'NGN',
+            'callback_url' => route('payment.callback'),
+            'metadata' => [
+                'service' => 'airtime',
+                'phone' => $phone,
+                'network' =>  $network_id,
+            ],
+        ];
+
+        $paymentService = new PaymentService();
+
+        $paymentResponse = $paymentService->redirectToGateway($data);
+
+        return $this->success(['paymentUrl' => $paymentResponse->url]);
     }
 
     public function originalPrice($price, $network=null)
