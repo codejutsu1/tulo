@@ -21,11 +21,11 @@ class PaymentService {
 
     public function storePayment($payment)
     {
-        $paymentService = $data['metadata']['service'];
-        $phone = $data['metadata']['phone'];
-        $network_id = $data['metadata']['network'];
-        $variation_id = $data['metadata']['variation_id'];
-        $amount = $data['metadata']['amount'];
+        $paymentService = $payment['metadata']['service'];
+        $phone = $payment['metadata']['phone'];
+        $network_id = $payment['metadata']['network'];
+        $variation_id = $payment['metadata']['variation_id'];
+        $amount = $payment['amount'];
 
         $response = Http::get("https://vtu.ng/wp-json/api/v1/$paymentService", [
             'username' => $this->username(),
@@ -60,18 +60,29 @@ class PaymentService {
 
         if($response['code'] != 'success') return $this->error($response['message'], 422);
 
+        if($paymentService === 'airtime')
+        {
+            $airtimeService = new AirtimeService();
+
+            $price = (integer) str_replace('NGN', '', $response['data']['amount']);
+
+            $original_price = $airtimeService->originalPrice($price, $response['data']['network']);
+    
+            $profit = $airtimeService->profit($original_price, $price);
+        }
+
         if($response['code'] == 'success'){
             $transaction = Transaction::create([
                 'user_id' => 1,
-                'status' => $test['code'],
-                'message' => $test['message'],
-                'network' => $test['data']['network'],
-                'phone' => $test['data']['phone'],
+                'status' => $response['code'],
+                'message' => $response['message'],
+                'network' => $response['data']['network'],
+                'phone' => $response['data']['phone'],
                 'original_price' => $original_price,
                 'profit' => $profit,
                 'amount' => $price,
-                'data_plan' => 'airtime',
-                'order_id' => $test['data']['order_id']
+                'data_plan' => $paymentService ?? 'airtime' : null,
+                'order_id' => $response['data']['order_id']
             ]);
 
             return $transaction;

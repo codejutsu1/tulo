@@ -20,9 +20,9 @@ class AirtimeController extends Controller
 
     public function store(StoreAirtimeRequest $request)
     {
-        $airtimeService = new AirtimeService();
-
         $response = $airtimeService->buyAirtime($request->validated());
+
+        return $response;
 
         $test_reponse = '{
             "code":"success",
@@ -34,14 +34,6 @@ class AirtimeController extends Controller
                 "order_id":"3100"
             }
         }'; 
-
-        $test= json_decode($test_reponse, true);
-
-        $price = (integer) str_replace('NGN', '', $test['data']['amount']);
-
-        $original_price = $airtimeService->originalPrice($price, $test['data']['network']);
-
-        $profit = $airtimeService->profit($original_price, $price);
     }
 
     /**
