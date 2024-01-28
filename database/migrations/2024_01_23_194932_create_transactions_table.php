@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
             $table->uuid('identifier');
+            $table->string('reference');
             $table->foreignId('user_id')->constrained();
             $table->foreignId('package_id')->nullable()->constrained();
             $table->string('order_id');

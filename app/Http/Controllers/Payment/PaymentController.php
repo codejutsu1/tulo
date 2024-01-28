@@ -15,22 +15,32 @@ class PaymentController extends Controller
      * @return void
      */
 
+    public function __construct(private PaymentService $paymentService){}
+
     public function handleGatewayCallback()
     {
-        dd(paystack()->getAllTransactions());
+        // dd(paystack()->getAllTransactions());
 
         $paymentDetails = Paystack::getPaymentData();
 
-        if($paymentDetails['status'] == 'success'){
-            $paymentService = new PaymentService();
-
-            $paymentService->storePayment($paymentDetails);
-        }else {
+        if($paymentDetails['status'] != 'success'){
             return $this->error([
                 'message' => $paymentDetails['message'],
                 'status' => $paymentDetails['status'],
                 'gateway_response' => $paymentDetails['gateway_response'],
             ]);
         }
+
+        $paymentDetails = [
+            'id' => 474747,
+            'status' => 'success',
+            'reference' => 'fasadv',
+            'amount' => 7000,
+            'metadata' => [
+
+            ]
+        ];
+
+        $paymentService->storePayment($paymentDetails);
     }
 }

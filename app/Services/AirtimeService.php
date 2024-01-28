@@ -49,9 +49,4 @@ class AirtimeService {
 
         return $original_price;
     }
-
-    public function profit($original_price, $price)
-    {
-        return $price - $original_price;
-    }
 }
