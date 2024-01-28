@@ -32,10 +32,10 @@ class PaymentService {
             'password' => $this->password(),
             'phone' => $phone,
             'network_id' => $network_id ?? null,
-            'variation_id' => $variation_id ?? null,
             'amount' => $amount ?? null,
             'service_id' => $service_id ?? null,
             'smartcard_number' => $smartcard_number ?? null,
+            'variation_id' => $variation_id ?? null,
         ]);
 
         $response = $response->json(); 
@@ -85,7 +85,7 @@ class PaymentService {
                 'order_id' => $response['data']['order_id']
             ]);
 
-            return $transaction;
+            return $this->success($transaction);
         }
     }
 }

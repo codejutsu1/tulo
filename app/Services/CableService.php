@@ -13,15 +13,27 @@ class CableService {
     {
         $phoneNumber = (new PhoneService)->formatNumber($request['phoneNumber']);
 
-        $response = Http::get('https://vtu.ng/wp-json/api/v1/tv', [
-            'username' => $this->username(),
-            'password' => $this->password(),
-            'phone' => $phoneNumber,
-            'service_id' => $request['service_id'],
-            'smartcard_number' => $request['smartcard_number'],
-            'variation_id' => $request['variation_id']
-        ]);
+        $amount = Package::where('variation_id', $request['variation_id'])->value('price');
 
-        return $response;
+        $data = [
+            'amount' => $amount * 100,
+            'reference' => paystack()->genTranxRef(),
+            'email' => 'danieldunu001@gmail.com', //Authenticated User
+            'currency' => 'NGN',
+            'callback_url' => route('payment.callback'),
+            'metadata' => [
+                'service' => 'tv',
+                'phone' => $phoneNumber,
+                'service_id' =>  $request['service_id'],
+                'smartcard_number' => $request['smartcard_number']
+                'variation_id' => $request['variation_id'],
+            ],
+        ];
+
+        $paymentService = new PaymentService();
+
+        $paymentResponse = $paymentService->redirectToGateway($data);
+
+        return $this->success(['paymentUrl' => $paymentResponse->url]);
     }
 }
