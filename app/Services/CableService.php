@@ -25,7 +25,7 @@ class CableService {
                 'service' => 'tv',
                 'phone' => $phoneNumber,
                 'service_id' =>  $request['service_id'],
-                'smartcard_number' => $request['smartcard_number']
+                'smartcard_number' => $request['smartcard_number'],
                 'variation_id' => $request['variation_id'],
             ],
         ];

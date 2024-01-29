@@ -72,7 +72,7 @@ class UtilityService {
 
             [
                 'utility_id' => 1,
-                'variation_id' => 'mtn-40gb-10000 ',
+                'variation_id' => 'mtn-40gb-10000',
                 'plan' => 'MTN Data 5GB - 30 Days',
                 'original_price' => 9859,
                 'price' => 11200

@@ -9,10 +9,11 @@ use Illuminate\Support\Facades\Http;
 
 class AirtimeService {
     use Vtu;
+
+    public function __construct(private PhoneService $phoneService){}
     
     public function buyAirtime($request)
     {
-        $phoneService = new PhoneService();
         $phone = $phoneService->formatNumber($request['phoneNumber']);
         $network_id = $phoneService->networkProvider($phone);
 

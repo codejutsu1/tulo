@@ -30,17 +30,7 @@ class PaymentController extends Controller
                 'gateway_response' => $paymentDetails['gateway_response'],
             ]);
         }
-
-        $paymentDetails = [
-            'id' => 474747,
-            'status' => 'success',
-            'reference' => 'fasadv',
-            'amount' => 7000,
-            'metadata' => [
-
-            ]
-        ];
-
-        $paymentService->storePayment($paymentDetails);
+        
+        return $this->paymentService->storePayment($paymentDetails);
     }
 }

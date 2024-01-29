@@ -4,13 +4,14 @@ namespace App\Services;
 
 use App\Mail\VtuError;
 use App\Traits\HttpResponses;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Mail;
 
 class ErrorService {
     use HttpResponses;
-    public function returnErrorMessages($response)
+    public function returnErrorMessages($response): JsonResponse
     {
-        $errors = ['empty_username', 'empty_password', 'invalid_username', 'Incorrect_password'];
+        $errors = ['empty_username', 'empty_password', 'invalid_username', 'incorrect_password'];
 
         foreach($errors as $error){
             if($response['code'] === $error) {

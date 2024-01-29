@@ -9,12 +9,13 @@ class VtuService{
     use Vtu;
     public function purchaseVtu($payment)
     {
+        $paymentService = $payment['metadata']['service'];
         $phone = $payment['metadata']['phone'];
-        $network_id = $payment['metadata']['network'];
-        $variation_id = $payment['metadata']['variation_id'];
-        $amount = $payment['amount'];
-        $smartcard_number = $payment['metadata']['smartcard_number'];
-        $service_id = $payment = $payment['metadata']['service_id'];    
+        $network_id = $payment['metadata']['network'] ?? null;
+        $variation_id = $payment['metadata']['variation_id'] ?? null;
+        $amount = $payment['amount'] ?? null;
+        $smartcard_number = $payment['metadata']['smartcard_number'] ?? null;
+        $service_id = $payment = $payment['metadata']['service_id'] ?? null;    
 
         $response = Http::get("https://vtu.ng/wp-json/api/v1/$paymentService", [
             'username' => $this->username(),
