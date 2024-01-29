@@ -4,7 +4,8 @@ namespace App\Services;
 
 class UtilityService {
 
-    public function getMtnPlan() {
+    public function getMtnPlan(): array 
+    {
         return [ 
             [
                 'utility_id' => 1,
@@ -88,7 +89,7 @@ class UtilityService {
         ];
     }
 
-    public function getAirtelPlan()
+    public function getAirtelPlan(): array
     {
         return [
             [
@@ -165,7 +166,7 @@ class UtilityService {
         ];
     }
 
-    public function getGotvPlan()
+    public function getGotvPlan(): array
     {
         return [
             [

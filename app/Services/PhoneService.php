@@ -3,7 +3,7 @@
 namespace App\Services;
 
 class PhoneService { 
-    public function networkProvider($number)
+    public function networkProvider($number): string
     {
         $number = $this->formatNumber($number);
 
@@ -32,7 +32,7 @@ class PhoneService {
         return "Not a Nigeria Number";
     }
 
-    public function formatNumber($number) 
+    public function formatNumber($number): string 
     {
         $number = (string) $number;
 
@@ -53,7 +53,7 @@ class PhoneService {
         return $number;
     }
 
-    private function mtn() 
+    private function mtn(): array 
     {
         return [
             '0803',
@@ -88,7 +88,7 @@ class PhoneService {
         ];
     }
 
-    private function airtel()
+    private function airtel(): array
     {
         return [
             '0701',
@@ -113,14 +113,14 @@ class PhoneService {
         ];
     }
 
-    private function glo() 
+    private function glo(): array 
     {
         return [
             '0805', '0807', '0811', '0815', '0705', '0905', '0915'
         ];
     }
 
-    private function mobile_9() 
+    private function mobile_9(): array 
     {
         return [
             '0809', '0817', '0818', '0908', '0909'
