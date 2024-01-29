@@ -5,14 +5,19 @@ namespace App\Services;
 use App\Traits\Vtu;
 use Illuminate\Http\Request;
 use App\Services\PhoneService;
+use App\Services\PaymentService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Http;
 
 class AirtimeService {
     use Vtu;
 
-    public function __construct(private PhoneService $phoneService){}
+    public function __construct(
+        private PhoneService $phoneService,
+        private PaymentService $paymentService
+        ){}
     
-    public function buyAirtime($request)
+    public function buyAirtime($request): JsonResponse
     {
         $phone = $phoneService->formatNumber($request['phoneNumber']);
         $network_id = $phoneService->networkProvider($phone);
@@ -31,14 +36,12 @@ class AirtimeService {
             ],
         ];
 
-        $paymentService = new PaymentService();
-
-        $paymentResponse = $paymentService->redirectToGateway($data);
+        $paymentResponse = $this->paymentService->redirectToGateway($data);
 
         return $this->success(['paymentUrl' => $paymentResponse->url]);
     }
 
-    public function originalPrice($price, $network=null)
+    public function originalPrice($price, $network=null): int
     {
         $discount = 0.03;
 
@@ -48,6 +51,6 @@ class AirtimeService {
 
         $original_price = $price - $discount_price;
 
-        return $original_price;
+        return (integer) $original_price;
     }
 }

@@ -4,14 +4,21 @@ namespace App\Services;
 
 use App\Traits\Vtu;
 use App\Services\PhoneService;
+use App\Services\PaymentService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Http;
 
 class CableService {
     use Vtu;
     
-    public function buyCable($request) 
+    public function __construct(
+        private PhoneService $phoneService,
+        private PaymentService $paymentService,
+    ){}
+    
+    public function buyCable($request): JsonResponse
     {
-        $phoneNumber = (new PhoneService)->formatNumber($request['phoneNumber']);
+        $phoneNumber = $this->phoneService->formatNumber($request['phoneNumber']);
 
         $amount = Package::where('variation_id', $request['variation_id'])->value('price');
 
@@ -30,9 +37,7 @@ class CableService {
             ],
         ];
 
-        $paymentService = new PaymentService();
-
-        $paymentResponse = $paymentService->redirectToGateway($data);
+        $paymentResponse = $this->paymentService->redirectToGateway($data);
 
         return $this->success(['paymentUrl' => $paymentResponse->url]);
     }
