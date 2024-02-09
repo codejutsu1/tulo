@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Data\DataController;
+use App\Http\Controllers\Role\RoleController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Cable\CableController;
 use App\Http\Controllers\Group\GroupController;
@@ -74,4 +75,6 @@ Route::group(['prefix' => 'v1'], function(){
     Route::apiResource('/transactions', TransactionController::class)->only(['index', 'show']);
 
     Route::get('/payment-callback', [PaymentController::class, 'handleGatewayCallback'])->name('payment.callback');
+
+    Route::apiResource('roles', RoleController::class);
 });
