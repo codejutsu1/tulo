@@ -58,23 +58,30 @@ Route::group(['prefix' => 'v1'], function(){
     Route::post('/format-number', [FormatNumberController::class, 'index'])->name('format.number');
     Route::post('/network-provider', [NetworkProviderController::class, 'index'])->name('network.provider');
 
-    Route::apiResource('airtimes', AirtimeController::class)->only(['store']);
-    Route::apiResource('users', UserController::class);
-    Route::apiResource('data', DataController::class);
-    Route::apiResource('cables', CableController::class);
-
-    Route::post('data-network', [DataNetworkController::class, 'index'])->name('data.network');
-
-    Route::post('verify-cable-user', [VerifyCableUserController::class, 'store'])->name('verify.cable.user');
-
     Route::apiResource('packages', PackageController::class);
 
-    Route::get('/utilities', [UtilityController::class, 'index'])->name('utility');
-    Route::get('/groups', [GroupController::class, 'index'])->name('group');
+    Route::middleware('auth:sanctum')->group(function() {
+        //Admin
+        Route::middleware('role:admin')->group(function() {
+            Route::apiResource('roles', RoleController::class);
+            Route::get('/utilities', [UtilityController::class, 'index'])->name('utility');
+            Route::get('/groups', [GroupController::class, 'index'])->name('group');
+            Route::apiResource('users', UserController::class);
+        });
 
-    Route::apiResource('/transactions', TransactionController::class)->only(['index', 'show']);
+        //Airtime
+        Route::apiResource('airtimes', AirtimeController::class)->only(['store']);
 
-    Route::get('/payment-callback', [PaymentController::class, 'handleGatewayCallback'])->name('payment.callback');
+        //Data
+        Route::apiResource('data', DataController::class)->only(['index', 'store']);
+        Route::post('data-network', [DataNetworkController::class, 'index'])->name('data.network');
 
-    Route::apiResource('roles', RoleController::class);
+        //Cable
+        Route::apiResource('cables', CableController::class)->only(['index', 'store']);
+        Route::post('verify-cable-user', [VerifyCableUserController::class, 'store'])->name('verify.cable.user');
+
+        //Transactions
+        Route::apiResource('/transactions', TransactionController::class)->only(['index', 'show']);
+        Route::get('/payment-callback', [PaymentController::class, 'handleGatewayCallback'])->name('payment.callback');
+    });
 });

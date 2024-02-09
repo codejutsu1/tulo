@@ -21,6 +21,6 @@ class EnsureUserHasRole
             }
         }
 
-        abort(401);
+        abort(403, 'You are not authorized to perform this action.');
     }
 }

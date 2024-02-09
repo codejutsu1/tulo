@@ -12,6 +12,11 @@ use App\Http\Requests\UpdatePackageRequest;
 
 class PackageController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth:sanctum', 'role:admin'])->except(['index', 'show']);
+    }
+
     public function index()
     {
         $packages = Package::all();
