@@ -20,17 +20,17 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
-
-        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
-
-        User::truncate();
-
-        User::factory(1000)->create(); //Set to 2000 later, The migration is slow on my local machine.
-
         $this->call([
+            RoleSeeder::class,
             GroupSeeder::class,
             UtilitySeeder::class,
             PackageSeeder::class,
         ]);
+        
+        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
+
+        User::truncate();
+
+        User::factory(20)->create(); //Set to 2000 later, The migration is slow on my local machine.
     }
 }

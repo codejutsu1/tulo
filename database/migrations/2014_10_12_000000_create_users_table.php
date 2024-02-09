@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('username')->unique();
             $table->string('phone_number')->unique();
             $table->string('source');
-            $table->boolean('admin')->default(0);
+            $table->foreignId('role_id')->default(3)->constrained();
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
