@@ -36,7 +36,7 @@ class AuthController extends Controller
 
         $token = $user->createToken('API Token of ' . $user->name)->plainTextToken;
 
-        return $this->success([new UserResource($user), 'token' => $token], 200);
+        return $this->success(['token' => $token], 200);
     }
 
     public function logout(Request $request)
