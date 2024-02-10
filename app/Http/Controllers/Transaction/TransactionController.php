@@ -9,6 +9,10 @@ use App\Http\Resources\TransactionResource;
 
 class TransactionController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Transaction::class, 'transaction');
+    }
     /**
      * Display a listing of the resource.
      */
@@ -24,6 +28,6 @@ class TransactionController extends Controller
      */
     public function show(Transaction $transaction)
     {
-        return $transaction;
+        return $this->success(new TransactionResource($transactions));
     }
 }

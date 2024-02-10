@@ -2,8 +2,11 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Transaction extends Model
@@ -37,5 +40,17 @@ class Transaction extends Model
     public function uniqueIds(): array
     {
         return ['identifier'];
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    protected static function booted(): void
+    {
+        static::addGlobalScope('user', function (Builder $builder){
+            $builder->where('user_id', Auth::id());
+        });
     }
 }
