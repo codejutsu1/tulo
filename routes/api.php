@@ -13,6 +13,7 @@ use App\Http\Controllers\Package\PackageController;
 use App\Http\Controllers\Payment\PaymentController;
 use App\Http\Controllers\Utility\UtilityController;
 use App\Http\Controllers\Data\DataNetworkController;
+use App\Http\Controllers\User\UserProfileController;
 use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\Network\FormatNumberController;
@@ -31,9 +32,9 @@ use App\Http\Controllers\Transaction\TransactionController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
 
 Route::group(['prefix' => 'v1'], function(){ 
     //Authentication
@@ -83,5 +84,10 @@ Route::group(['prefix' => 'v1'], function(){
         //Transactions
         Route::apiResource('/transactions', TransactionController::class)->only(['index', 'show']);
         Route::get('/payment-callback', [PaymentController::class, 'handleGatewayCallback'])->name('payment.callback');
+
+        //User Profile
+        Route::get('/user', [UserProfileController::class, 'show'])->name('user.profile');
+        Route::put('/user', [UserProfileController::class, 'update'])->name('user.update');
+        Route::delete('/user', [UserProfileController::class, 'destroy'])->name('user.delete');
     });
 });
