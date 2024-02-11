@@ -18,11 +18,14 @@ use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\Admin\Role\RoleUserController;
 use App\Http\Controllers\Admin\User\UserRoleController;
 use App\Http\Controllers\Network\FormatNumberController;
+use App\Http\Controllers\Admin\Group\GroupUserController;
 use App\Http\Controllers\Admin\Utility\UtilityController;
 use App\Http\Controllers\Cable\VerifyCableUserController;
 use App\Http\Controllers\Admin\User\UserPackageController;
 use App\Http\Controllers\Network\NetworkProviderController;
 use App\Http\Controllers\Transaction\TransactionController;
+use App\Http\Controllers\Admin\Group\GroupPackageController;
+use App\Http\Controllers\Admin\Group\GroupUtilityController;
 use App\Http\Controllers\Admin\Package\PackageUserController;
 use App\Http\Controllers\Admin\User\UserTransactionController;
 use App\Http\Controllers\Admin\Package\PackageTransactionController;
@@ -88,6 +91,10 @@ Route::group(['prefix' => 'v1'], function(){
             Route::apiResource('packages.users', PackageUserController::class)->only('index');
 
             Route::apiResource('roles.users', RoleUserController::class)->only('index');
+
+            Route::apiResource('groups.users', GroupUserController::class)->only('index');
+            Route::apiResource('groups.packages', GroupPackageController::class)->only('index');
+            Route::apiResource('groups.utilities', GroupUtilityController::class)->only('index');
         });
 
         //Airtime
