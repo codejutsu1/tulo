@@ -37,6 +37,7 @@ use App\Http\Controllers\Admin\Package\PackageTransactionController;
 use App\Http\Controllers\Admin\Utility\UtilityTransactionController;
 use App\Http\Controllers\Admin\Transaction\TransactionUserController;
 use App\Http\Controllers\Admin\Transaction\TransactionPackageController;
+use App\Http\Controllers\Admin\Transaction\TransactionUtilityController;
 
 /*
 |--------------------------------------------------------------------------
@@ -92,6 +93,7 @@ Route::group(['prefix' => 'v1'], function(){
 
             Route::apiResource('transactions.users', TransactionUserController::class)->only('index');
             Route::apiResource('transactions.packages', TransactionPackageController::class)->only('index');
+            Route::apiResource('transactions.utilities', TransactionUtilityController::class)->only('index');
 
             Route::apiResource('packages.transactions', PackageTransactionController::class)->only('index');
             Route::apiResource('packages.users', PackageUserController::class)->only('index');
