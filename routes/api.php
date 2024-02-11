@@ -6,23 +6,25 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Data\DataController;
 use App\Http\Controllers\Role\RoleController;
 use App\Http\Controllers\Cable\CableController;
-use App\Http\Controllers\Group\GroupController;
 use App\Http\Controllers\Admin\User\UserController;
 use App\Http\Controllers\Airtime\AirtimeController;
 use App\Http\Controllers\Package\PackageController;
 use App\Http\Controllers\Payment\PaymentController;
-use App\Http\Controllers\Utility\UtilityController;
 use App\Http\Controllers\Data\DataNetworkController;
 use App\Http\Controllers\User\UserProfileController;
+use App\Http\Controllers\Admin\Group\GroupController;
 use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\Admin\User\UserRoleController;
 use App\Http\Controllers\Network\FormatNumberController;
+use App\Http\Controllers\Admin\Utility\UtilityController;
 use App\Http\Controllers\Cable\VerifyCableUserController;
 use App\Http\Controllers\Network\NetworkProviderController;
 use App\Http\Controllers\Transaction\TransactionController;
 use App\Http\Controllers\Admin\User\UserTransactionController;
+use App\Http\Controllers\Admin\Package\PackageTransactionController;
 use App\Http\Controllers\Admin\Transaction\TransactionUserController;
+use App\Http\Controllers\Admin\Transaction\TransactionPackageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -76,6 +78,9 @@ Route::group(['prefix' => 'v1'], function(){
             Route::apiResource('users.roles', UserRoleController::class)->only('index');
 
             Route::apiResource('transactions.users', TransactionUserController::class)->only('index');
+            Route::apiResource('transactions.packages', TransactionPackageController::class)->only('index');
+
+            Route::apiResource('packages.transactions', PackageTransactionController::class)->only('index');
         });
 
         //Airtime
