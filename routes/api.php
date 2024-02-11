@@ -15,6 +15,7 @@ use App\Http\Controllers\User\UserProfileController;
 use App\Http\Controllers\Admin\Group\GroupController;
 use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\Auth\PasswordResetController;
+use App\Http\Controllers\Admin\Role\RoleUserController;
 use App\Http\Controllers\Admin\User\UserRoleController;
 use App\Http\Controllers\Network\FormatNumberController;
 use App\Http\Controllers\Admin\Utility\UtilityController;
@@ -85,6 +86,8 @@ Route::group(['prefix' => 'v1'], function(){
 
             Route::apiResource('packages.transactions', PackageTransactionController::class)->only('index');
             Route::apiResource('packages.users', PackageUserController::class)->only('index');
+
+            Route::apiResource('roles.users', RoleUserController::class)->only('index');
         });
 
         //Airtime
