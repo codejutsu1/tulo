@@ -47,10 +47,10 @@ class Transaction extends Model
         return $this->belongsTo(User::class);
     }
 
-    protected static function booted(): void
-    {
-        static::addGlobalScope('user', function (Builder $builder){
-            $builder->where('user_id', Auth::id());
-        });
-    }
+    // protected static function booted(): void
+    // {
+    //     static::addGlobalScope('user', function (Builder $builder){
+    //         $builder->where('user_id', Auth::id());
+    //     });
+    // }
 }

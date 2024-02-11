@@ -5,9 +5,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Data\DataController;
 use App\Http\Controllers\Role\RoleController;
-use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Cable\CableController;
 use App\Http\Controllers\Group\GroupController;
+use App\Http\Controllers\Admin\User\UserController;
 use App\Http\Controllers\Airtime\AirtimeController;
 use App\Http\Controllers\Package\PackageController;
 use App\Http\Controllers\Payment\PaymentController;
@@ -20,6 +20,7 @@ use App\Http\Controllers\Network\FormatNumberController;
 use App\Http\Controllers\Cable\VerifyCableUserController;
 use App\Http\Controllers\Network\NetworkProviderController;
 use App\Http\Controllers\Transaction\TransactionController;
+use App\Http\Controllers\Admin\User\UserTransactionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -63,11 +64,13 @@ Route::group(['prefix' => 'v1'], function(){
 
     Route::middleware('auth:sanctum')->group(function() {
         //Admin
-        Route::middleware('role:admin')->group(function() {
+        Route::middleware('role:admin')->prefix('admin')->group(function() {
             Route::apiResource('roles', RoleController::class);
             Route::get('/utilities', [UtilityController::class, 'index'])->name('utility');
             Route::get('/groups', [GroupController::class, 'index'])->name('group');
             Route::apiResource('users', UserController::class);
+
+            Route::apiResource('users.transactions', UserTransactionController::class)->only('index');
         });
 
         //Airtime
@@ -86,8 +89,10 @@ Route::group(['prefix' => 'v1'], function(){
         Route::get('/payment-callback', [PaymentController::class, 'handleGatewayCallback'])->name('payment.callback');
 
         //User Profile
-        Route::get('/user', [UserProfileController::class, 'show'])->name('user.profile');
-        Route::put('/user', [UserProfileController::class, 'update'])->name('user.update');
-        Route::delete('/user', [UserProfileController::class, 'destroy'])->name('user.delete');
+        Route::controller(UserProfileController::class)->group(function() {
+            Route::get('/user', 'show')->name('user.profile');
+            Route::put('/user', 'update')->name('user.update');
+            Route::delete('/user', 'destroy')->name('user.delete');
+        });
     });
 });
