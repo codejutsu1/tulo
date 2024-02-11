@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Group;
+namespace App\Http\Controllers\Admin\Group;
 
 use App\Models\Group;
 use Illuminate\Http\Request;

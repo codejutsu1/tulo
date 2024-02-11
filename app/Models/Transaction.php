@@ -47,6 +47,11 @@ class Transaction extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function package(): BelongsTo
+    {
+        return $this->belongsTo(Package::class);
+    }
+
     // protected static function booted(): void
     // {
     //     static::addGlobalScope('user', function (Builder $builder){
