@@ -16,6 +16,7 @@ use App\Http\Controllers\Data\DataNetworkController;
 use App\Http\Controllers\User\UserProfileController;
 use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\Auth\PasswordResetController;
+use App\Http\Controllers\Admin\User\UserRoleController;
 use App\Http\Controllers\Network\FormatNumberController;
 use App\Http\Controllers\Cable\VerifyCableUserController;
 use App\Http\Controllers\Network\NetworkProviderController;
@@ -71,6 +72,7 @@ Route::group(['prefix' => 'v1'], function(){
             Route::apiResource('users', UserController::class);
 
             Route::apiResource('users.transactions', UserTransactionController::class)->only('index');
+            Route::apiResource('users.roles', UserRoleController::class)->only('index');
         });
 
         //Airtime
