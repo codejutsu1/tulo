@@ -17,11 +17,13 @@ use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\Admin\Role\RoleUserController;
 use App\Http\Controllers\Admin\User\UserRoleController;
+use App\Http\Controllers\Admin\User\UserGroupController;
 use App\Http\Controllers\Network\FormatNumberController;
 use App\Http\Controllers\Admin\Group\GroupUserController;
 use App\Http\Controllers\Admin\Utility\UtilityController;
 use App\Http\Controllers\Cable\VerifyCableUserController;
 use App\Http\Controllers\Admin\User\UserPackageController;
+use App\Http\Controllers\Admin\User\UserUtilityController;
 use App\Http\Controllers\Network\NetworkProviderController;
 use App\Http\Controllers\Transaction\TransactionController;
 use App\Http\Controllers\Admin\Group\GroupPackageController;
@@ -31,11 +33,13 @@ use App\Http\Controllers\Admin\Utility\UtilityUserController;
 use App\Http\Controllers\Admin\Package\PackageGroupController;
 use App\Http\Controllers\Admin\User\UserTransactionController;
 use App\Http\Controllers\Admin\Utility\UtilityGroupController;
+use App\Http\Controllers\Admin\Group\GroupTransactionController;
 use App\Http\Controllers\Admin\Package\PackageUtilityController;
 use App\Http\Controllers\Admin\Utility\UtilityPackageController;
 use App\Http\Controllers\Admin\Package\PackageTransactionController;
 use App\Http\Controllers\Admin\Utility\UtilityTransactionController;
 use App\Http\Controllers\Admin\Transaction\TransactionUserController;
+use App\Http\Controllers\Admin\Transaction\TransactionGroupController;
 use App\Http\Controllers\Admin\Transaction\TransactionPackageController;
 use App\Http\Controllers\Admin\Transaction\TransactionUtilityController;
 
@@ -90,10 +94,13 @@ Route::group(['prefix' => 'v1'], function(){
             Route::apiResource('users.transactions', UserTransactionController::class)->only('index');
             Route::apiResource('users.roles', UserRoleController::class)->only('index');
             Route::apiResource('users.packages', UserPackageController::class)->only('index');
+            Route::apiResource('users.groups', UserGroupController::class)->only('index');
+            Route::apiResource('users.utilities', UserUtilityController::class)->only('index');
 
             Route::apiResource('transactions.users', TransactionUserController::class)->only('index');
             Route::apiResource('transactions.packages', TransactionPackageController::class)->only('index');
             Route::apiResource('transactions.utilities', TransactionUtilityController::class)->only('index');
+            Route::apiResource('transactions.groups', TransactionGroupController::class)->only('index');
 
             Route::apiResource('packages.transactions', PackageTransactionController::class)->only('index');
             Route::apiResource('packages.users', PackageUserController::class)->only('index');
@@ -105,6 +112,7 @@ Route::group(['prefix' => 'v1'], function(){
             Route::apiResource('groups.users', GroupUserController::class)->only('index');
             Route::apiResource('groups.packages', GroupPackageController::class)->only('index');
             Route::apiResource('groups.utilities', GroupUtilityController::class)->only('index');
+            Route::apiResource('groups.transactions', GroupTransactionController::class)->only('index');
 
             Route::apiResource('utilities.groups', UtilityGroupController::class)->only('index');
             Route::apiResource('utilities.packages', UtilityPackageController::class)->only('index');
