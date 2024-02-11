@@ -27,7 +27,9 @@ use App\Http\Controllers\Transaction\TransactionController;
 use App\Http\Controllers\Admin\Group\GroupPackageController;
 use App\Http\Controllers\Admin\Group\GroupUtilityController;
 use App\Http\Controllers\Admin\Package\PackageUserController;
+use App\Http\Controllers\Admin\Package\PackageGroupController;
 use App\Http\Controllers\Admin\User\UserTransactionController;
+use App\Http\Controllers\Admin\Package\PackageUtilityController;
 use App\Http\Controllers\Admin\Package\PackageTransactionController;
 use App\Http\Controllers\Admin\Transaction\TransactionUserController;
 use App\Http\Controllers\Admin\Transaction\TransactionPackageController;
@@ -89,6 +91,8 @@ Route::group(['prefix' => 'v1'], function(){
 
             Route::apiResource('packages.transactions', PackageTransactionController::class)->only('index');
             Route::apiResource('packages.users', PackageUserController::class)->only('index');
+            Route::apiResource('packages.groups', PackageGroupController::class)->only('index');
+            Route::apiResource('packages.utilities', PackageUtilityController::class)->only('index');
 
             Route::apiResource('roles.users', RoleUserController::class)->only('index');
 
