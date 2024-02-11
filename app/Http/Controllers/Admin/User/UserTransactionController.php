@@ -13,6 +13,6 @@ class UserTransactionController extends Controller
     {
         $transactions = $user->transactions;
 
-        return $this->success(new TransactionResource($transactions));
+        return $this->success(TransactionResource::collection($transactions));
     }
 }

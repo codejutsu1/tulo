@@ -11,8 +11,8 @@ class TransactionPackageController extends Controller
 {
     public function index(Transaction $transaction)
     {
-        $packages = $transaction->package;
+        $package = $transaction->package;
 
-        return $this->success(new PackageResource($packages));
+        return $this->success(new PackageResource($package));
     }
 }
