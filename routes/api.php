@@ -27,10 +27,14 @@ use App\Http\Controllers\Transaction\TransactionController;
 use App\Http\Controllers\Admin\Group\GroupPackageController;
 use App\Http\Controllers\Admin\Group\GroupUtilityController;
 use App\Http\Controllers\Admin\Package\PackageUserController;
+use App\Http\Controllers\Admin\Utility\UtilityUserController;
 use App\Http\Controllers\Admin\Package\PackageGroupController;
 use App\Http\Controllers\Admin\User\UserTransactionController;
+use App\Http\Controllers\Admin\Utility\UtilityGroupController;
 use App\Http\Controllers\Admin\Package\PackageUtilityController;
+use App\Http\Controllers\Admin\Utility\UtilityPackageController;
 use App\Http\Controllers\Admin\Package\PackageTransactionController;
+use App\Http\Controllers\Admin\Utility\UtilityTransactionController;
 use App\Http\Controllers\Admin\Transaction\TransactionUserController;
 use App\Http\Controllers\Admin\Transaction\TransactionPackageController;
 
@@ -99,6 +103,11 @@ Route::group(['prefix' => 'v1'], function(){
             Route::apiResource('groups.users', GroupUserController::class)->only('index');
             Route::apiResource('groups.packages', GroupPackageController::class)->only('index');
             Route::apiResource('groups.utilities', GroupUtilityController::class)->only('index');
+
+            Route::apiResource('utilities.groups', UtilityGroupController::class)->only('index');
+            Route::apiResource('utilities.packages', UtilityPackageController::class)->only('index');
+            Route::apiResource('utilities.transactions', UtilityTransactionController::class)->only('index');
+            Route::apiResource('utilities.users', UtilityUserController::class)->only('index');
         });
 
         //Airtime

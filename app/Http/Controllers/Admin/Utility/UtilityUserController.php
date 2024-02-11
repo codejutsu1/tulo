@@ -7,5 +7,8 @@ use Illuminate\Http\Request;
 
 class UtilityUserController extends Controller
 {
-    //
+    public function index(Utility $utility)
+    {
+        
+    }
 }
