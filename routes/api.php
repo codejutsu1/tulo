@@ -22,6 +22,7 @@ use App\Http\Controllers\Cable\VerifyCableUserController;
 use App\Http\Controllers\Network\NetworkProviderController;
 use App\Http\Controllers\Transaction\TransactionController;
 use App\Http\Controllers\Admin\User\UserTransactionController;
+use App\Http\Controllers\Admin\Transaction\TransactionUserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -73,6 +74,8 @@ Route::group(['prefix' => 'v1'], function(){
 
             Route::apiResource('users.transactions', UserTransactionController::class)->only('index');
             Route::apiResource('users.roles', UserRoleController::class)->only('index');
+
+            Route::apiResource('transactions.users', TransactionUserController::class)->only('index');
         });
 
         //Airtime
