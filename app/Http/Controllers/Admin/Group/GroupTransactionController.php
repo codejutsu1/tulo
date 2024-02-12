@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Group;
 use App\Models\Group;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\TransactionResource;
 
 class GroupTransactionController extends Controller
 {
@@ -20,6 +21,6 @@ class GroupTransactionController extends Controller
                                 ->unique()
                                 ->values();
 
-        return $transactions;
+        return $this->success(TransactionResource::collection($transactions));
     }
 }

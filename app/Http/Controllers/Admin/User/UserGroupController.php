@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\User;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\GroupResource;
 
 class UserGroupController extends Controller
 {
@@ -18,6 +19,6 @@ class UserGroupController extends Controller
                         ->unique()
                         ->values();
 
-        return $groups;
+        return $this->success(GroupResource::collection($groups));
     }
 }

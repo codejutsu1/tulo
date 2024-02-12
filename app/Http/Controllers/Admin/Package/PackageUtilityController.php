@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Package;
 use App\Models\Package;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\UtilityResource;
 
 class PackageUtilityController extends Controller
 {
@@ -12,6 +13,6 @@ class PackageUtilityController extends Controller
     {
         $utility = $package->utility;
 
-        return $utility;
+        return $this->success(new UtilityResource($utility));
     }
 }

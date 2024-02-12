@@ -17,6 +17,6 @@ class PackageUserController extends Controller
                         ->get()
                         ->pluck('user');
 
-        return $this->success(new UserResource($users));
+        return $this->success(UserResource::collection($users));
     }
 }

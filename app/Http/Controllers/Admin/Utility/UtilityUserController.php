@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Utility;
 use App\Models\Utility;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\UserResource;
 
 class UtilityUserController extends Controller
 {
@@ -19,6 +20,6 @@ class UtilityUserController extends Controller
                         ->unique()
                         ->values();   
         
-        return $users;
+        return $this->success(UserResource::collection($users));
     }
 }

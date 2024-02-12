@@ -5,17 +5,20 @@ namespace App\Http\Controllers\Admin\Package;
 use App\Models\Package;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\GroupResource;
 
 class PackageGroupController extends Controller
 {
     public function index(Package $package)
     {
-        $group = $package->utility()
+        $groups = $package->utility()
                         ->whereHas('group')
                         ->with('group')
                         ->get()
-                        ->pluck('group');
+                        ->pluck('group')
+                        ->unique()
+                        ->values();
 
-        return $group;
+        return $this->success(GroupResource::collection($groups));
     }
 }
