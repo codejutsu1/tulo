@@ -1,5 +1,8 @@
 <?php
 
+use App\Models\User;
+use Database\Seeders\RoleSeeder;
+
 /*
 |--------------------------------------------------------------------------
 | Test Case
@@ -13,8 +16,9 @@
 
 uses(
     Tests\TestCase::class,
-    // Illuminate\Foundation\Testing\RefreshDatabase::class,
-)->in('Feature');
+    Illuminate\Foundation\Testing\RefreshDatabase::class,
+)->beforeEach(fn() => $this->seed(RoleSeeder::class))
+->in('Feature');
 
 /*
 |--------------------------------------------------------------------------
@@ -42,7 +46,9 @@ expect()->extend('toBeOne', function () {
 |
 */
 
-function something()
+function createUser(int $isAdmin = 3)
 {
-    // ..
+    return User::factory()->create([
+        'role_id' => $isAdmin,
+    ]);
 }
