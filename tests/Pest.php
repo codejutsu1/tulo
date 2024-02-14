@@ -2,6 +2,9 @@
 
 use App\Models\User;
 use Database\Seeders\RoleSeeder;
+use Database\Seeders\GroupSeeder;
+use Database\Seeders\PackageSeeder;
+use Database\Seeders\UtilitySeeder;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,7 +20,12 @@ use Database\Seeders\RoleSeeder;
 uses(
     Tests\TestCase::class,
     Illuminate\Foundation\Testing\RefreshDatabase::class,
-)->beforeEach(fn() => $this->seed(RoleSeeder::class))
+)->beforeEach(fn() => 
+    $this->seed(RoleSeeder::class, 
+    $this->seed(GroupSeeder::class),
+    $this->seed(UtilitySeeder::class),
+    $this->seed(PackageSeeder::class),
+))
 ->in('Feature');
 
 /*
