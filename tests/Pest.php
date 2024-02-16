@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\User;
+use App\Models\Transaction;
 use Database\Seeders\RoleSeeder;
 use Database\Seeders\GroupSeeder;
 use Database\Seeders\PackageSeeder;
@@ -59,4 +60,11 @@ function createUser(int $isAdmin = 3)
     return User::factory()->create([
         'role_id' => $isAdmin,
     ]);
+}
+
+function createTransaction()
+{
+    collect(range(1, 22))->map(function($data) {
+        return Transaction::factory()->create(['package_id' => $data]);
+    });
 }
