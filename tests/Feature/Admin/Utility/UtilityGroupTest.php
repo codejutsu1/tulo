@@ -39,7 +39,7 @@ test('Utility Group Endpoint returns groups associated with Utility', function()
                     );
 });
 
-test('Utility Group Endpoint does not return groups associated with Utility', function() {
+test('Utility Group Endpoint does not return groups associated with another Utility', function() {
     $group = Utility::findOrFail(1)->group;
     
     $resource = new GroupResource($group);

@@ -48,7 +48,7 @@ test('Utility User Endpoint returns users associated with Utility', function() {
 });
 
 
-test('Utility User Endpoint does not returns users associated with Utility', function() {
+test('Utility User Endpoint does not returns users associated with another Utility', function() {
     $users = Utility::findOrFail(1)
                         ->packages()
                         ->with('transactions.user')

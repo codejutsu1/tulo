@@ -44,7 +44,7 @@ test('Utility transaction endpoint returns transaction data', function() {
                         );
 });
 
-test('Utility transaction endpoint does not return transaction data not associated with group', function() {
+test('Utility transaction endpoint does not return transaction associated with another group', function() {
     $transactions = Utility::findOrFail(1)
                             ->packages()
                             ->whereHas('transactions')

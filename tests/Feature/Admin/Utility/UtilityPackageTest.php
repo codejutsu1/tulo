@@ -37,7 +37,7 @@ test('Utility endpoints returns the first packages', function() {
                     );
 });
 
-test('Utility endpoints does not return the first packages', function() {
+test('Utility endpoints does not return packages associated with another utility', function() {
     $packages = Utility::findOrFail(1)->packages;
 
     $resource = PackageResource::collection($packages);
