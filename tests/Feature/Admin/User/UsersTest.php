@@ -89,7 +89,12 @@ test('An admin can update a user', function() {
 
     $response = $this->actingAs($this->admin)
                         ->putJson(route('users.update', $this->user->id), $data)
-                        ->assertOk();
+                        ->assertOk()
+                        ->assertJson([
+                            'data' => [
+                                'name' => 'john'
+                            ]
+                        ]);
 });
 
 test('A user cannot update a user', function() {
