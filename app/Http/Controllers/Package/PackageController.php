@@ -35,7 +35,7 @@ class PackageController extends Controller
 
     public function show(Package $package)
     {
-        return $this->success($package);
+        return $this->success(new PackageResource($package));
     }
     
     public function update(UpdatePackageRequest $request, Package $package)
@@ -49,6 +49,6 @@ class PackageController extends Controller
     {
         $package->delete();
 
-        return $package;
+        return response()->noContent();
     }
 }

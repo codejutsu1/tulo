@@ -21,6 +21,6 @@ class PackageService {
 
         $package = Package::create($request);
 
-        return $this->success(new PackageResource($package));
+        return $this->success(new PackageResource($package), 201);
     }
 }
