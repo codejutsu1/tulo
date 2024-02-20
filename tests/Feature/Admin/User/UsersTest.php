@@ -66,7 +66,7 @@ test('An admin can view a single user', function() {
     $resource = new UserResource($this->admin);
 
     $response = $this->actingAs($this->admin)
-                        ->get(route('users.show', $this->admin->id))
+                        ->get(route('users.show', $this->admin->identifier))
                         ->assertOk()
                         ->assertJson(
                             $resource->response()->getData(true)
@@ -75,12 +75,12 @@ test('An admin can view a single user', function() {
 
 test('A user cannot view a single user', function() {
     $response = $this->actingAs($this->user)
-                        ->get(route('users.show', $this->admin->id))
+                        ->get(route('users.show', $this->admin->identifier))
                         ->assertForbidden();
 });
 
 test('An unauthenticated user cannot view a single user', function() {
-    $response = $this->get(route('users.show', $this->admin->id))
+    $response = $this->get(route('users.show', $this->admin->identifier))
                     ->assertFound();
 });
 
@@ -88,7 +88,7 @@ test('An admin can update a user', function() {
     $data = ['name' => 'john'];
 
     $response = $this->actingAs($this->admin)
-                        ->putJson(route('users.update', $this->user->id), $data)
+                        ->putJson(route('users.update', $this->user->identifier), $data)
                         ->assertOk()
                         ->assertJson([
                             'data' => [
@@ -101,30 +101,30 @@ test('A user cannot update a user', function() {
     $data = ['name' => 'john'];
 
     $response = $this->actingAs($this->user)
-                        ->putJson(route('users.update', $this->user->id), $data)
+                        ->putJson(route('users.update', $this->user->identifier), $data)
                         ->assertForbidden();
 });
 
 test('An unauthenticated user cannot update a user', function() {
     $data = ['name' => 'john'];
 
-    $response = $this->putJson(route('users.update', $this->user->id), $data)
+    $response = $this->putJson(route('users.update', $this->user->identifier), $data)
                         ->assertUnauthorized();
 });
 
 test('An admin can delete a user', function() {
     $response = $this->actingAs($this->admin)
-                    ->deleteJson(route('users.destroy', $this->user->id))
+                    ->deleteJson(route('users.destroy', $this->user->identifier))
                     ->assertNoContent();
 });
 
 test('A user cannot delete a user', function() {
     $response = $this->actingAs($this->user)
-                    ->deleteJson(route('users.destroy', $this->user->id))
+                    ->deleteJson(route('users.destroy', $this->user->identifier))
                     ->assertForbidden();
 });
 
 test('An unauthenticated user cannot delete a user', function() {
-    $response = $this->deleteJson(route('users.destroy', $this->user->id))
+    $response = $this->deleteJson(route('users.destroy', $this->user->identifier))
                     ->assertUnauthorized();
 });

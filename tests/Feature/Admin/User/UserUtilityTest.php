@@ -14,18 +14,18 @@ beforeEach(function() {
 
 test('admin can access the User Utility endpoint', function () {
     $response = $this->actingAs($this->admin)
-                    ->get('/api/v1/admin/users/'.$this->user1->user_id.'/utilities')
+                    ->get('/api/v1/admin/users/'.$this->user1->user->identifier.'/utilities')
                     ->assertOk();
 });
 
 test('user can not access the User Utility endpoint', function () {
     $response = $this->actingAs($this->user)
-                    ->get('/api/v1/admin/users/'.$this->user1->user_id.'/utilities')
+                    ->get('/api/v1/admin/users/'.$this->user1->user->identifier.'/utilities')
                     ->assertForbidden();
 });
 
 test('Unauthenticated user can not access the User Utility endpoint', function () {
-    $response = $this->get('/api/v1/admin/users/'.$this->user1->user_id.'/utilities')
+    $response = $this->get('/api/v1/admin/users/'.$this->user1->user->identifier.'/utilities')
                     ->assertStatus(302);
 });
 
@@ -41,7 +41,7 @@ test('User Utility returns all utilities associated to a user', function() {
     $resource = UtilityResource::collection($utilities);
 
     $response = $this->actingAs($this->admin)
-                        ->get('/api/v1/admin/users/'.$this->user1->user_id.'/utilities')
+                        ->get('/api/v1/admin/users/'.$this->user1->user->identifier.'/utilities')
                         ->assertJson(
                             $resource->response()->getData(true)
                         );
@@ -59,7 +59,7 @@ test('User Utility does not return utilities associated to another user', functi
     $resource = UtilityResource::collection($utilities);
 
     $response = $this->actingAs($this->admin)
-                        ->get('/api/v1/admin/users/'.$this->user2->user_id.'/utilities')
+                        ->get('/api/v1/admin/users/'.$this->user2->user->identifier.'/utilities')
                         ->assertJsonMissing(
                             $resource->response()->getData(true)
                         );
