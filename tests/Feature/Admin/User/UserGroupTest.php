@@ -14,18 +14,18 @@ beforeEach(function() {
 
 test('admin can access the User Group endpoint', function () {
     $response = $this->actingAs($this->admin)
-                    ->get('/api/v1/admin/users/'.$this->user1->user_id.'/groups')
+                    ->get('/api/v1/admin/users/'.$this->user1->user->identifier.'/groups')
                     ->assertOk();
 });
 
 test('user can not access the User Group endpoint', function () {
     $response = $this->actingAs($this->user)
-                    ->get('/api/v1/admin/users/'.$this->user1->user_id.'/groups')
+                    ->get('/api/v1/admin/users/'.$this->user1->user->identifier.'/groups')
                     ->assertForbidden();
 });
 
 test('Unauthenticated user can not access the User Group endpoint', function () {
-    $response = $this->get('/api/v1/admin/users/'.$this->user1->user_id.'/groups')
+    $response = $this->get('/api/v1/admin/users/'.$this->user1->user->identifier.'/groups')
                     ->assertStatus(302);
 });
 
@@ -42,7 +42,7 @@ test('User Group returns all groups associated to a user', function() {
     $resource = GroupResource::collection($groups);
 
     $response = $this->actingAs($this->admin)
-                        ->get('/api/v1/admin/users/'.$this->user1->user_id.'/groups')
+                        ->get('/api/v1/admin/users/'.$this->user1->user->identifier.'/groups')
                         ->assertJson(
                             $resource->response()->getData(true)
                         );
@@ -61,7 +61,7 @@ test('User Group does not return groups associated to another user', function() 
     $resource = GroupResource::collection($groups);
 
     $response = $this->actingAs($this->admin)
-                        ->get('/api/v1/admin/users/'.$this->user2->user_id.'/groups')
+                        ->get('/api/v1/admin/users/'.$this->user2->user->identifier.'/groups')
                         ->assertJsonMissing(
                             $resource->response()->getData(true)
                         );
