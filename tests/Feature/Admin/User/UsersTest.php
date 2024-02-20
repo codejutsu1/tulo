@@ -91,9 +91,7 @@ test('An admin can update a user', function() {
                         ->putJson(route('users.update', $this->user->identifier), $data)
                         ->assertOk()
                         ->assertJson([
-                            'data' => [
-                                'name' => 'john'
-                            ]
+                            'data' => $data,
                         ]);
 });
 

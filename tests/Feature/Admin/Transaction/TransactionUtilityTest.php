@@ -26,7 +26,7 @@ test('user can not access the Transaction Utility endpoint', function () {
 
 test('Unauthenticated user can not access the Transaction Utility endpoint', function () {
     $response = $this->get('/api/v1/admin/transactions/'.$this->package1->identifier.'/utilities')
-                    ->assertStatus(302);
+                    ->assertFound();
 });
 
 test('Transaction Utility endpoint returns the utility associated with a transaction', function() {

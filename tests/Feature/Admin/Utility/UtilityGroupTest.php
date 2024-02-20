@@ -23,7 +23,7 @@ test('user can not access the Utility Group endpoint', function () {
 
 test('Unauthenticated user can not access the Utility Group endpoint', function () {
     $response = $this->get('/api/v1/admin/utilities/1/groups')
-                    ->assertStatus(302);
+                    ->assertFound();
 });
 
 

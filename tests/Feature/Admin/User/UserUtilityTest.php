@@ -26,7 +26,7 @@ test('user can not access the User Utility endpoint', function () {
 
 test('Unauthenticated user can not access the User Utility endpoint', function () {
     $response = $this->get('/api/v1/admin/users/'.$this->user1->user->identifier.'/utilities')
-                    ->assertStatus(302);
+                    ->assertFound();
 });
 
 test('User Utility returns all utilities associated to a user', function() {

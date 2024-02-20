@@ -24,7 +24,7 @@ test('user can not access the Package Utility endpoint', function () {
 
 test('Unauthenticated user can not access the Package Utility endpoint', function () {
     $response = $this->get('/api/v1/admin/packages/1/utilities')
-                    ->assertStatus(302);
+                    ->assertFound();
 });
 
 test('Package Utility Endpoint returns utilities associated to a package', function() {

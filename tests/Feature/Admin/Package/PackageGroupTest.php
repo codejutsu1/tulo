@@ -23,7 +23,7 @@ test('user can not access the Package Group endpoint', function () {
 
 test('Unauthenticated user can not access the Package Group endpoint', function () {
     $response = $this->get('/api/v1/admin/packages/1/groups')
-                    ->assertStatus(302);
+                    ->assertFound();
 });
 
 test('Package Group endpoint returns group associated with a package', function() {

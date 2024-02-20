@@ -23,7 +23,7 @@ test('user can not access the Utility Transaction endpoint', function () {
 
 test('Unauthenticated user can not access the Utility Transaction endpoint', function () {
     $response = $this->get('/api/v1/admin/utilities/1/transactions')
-                    ->assertStatus(302);
+                    ->assertFound();
 });
 
 test('Utility transaction endpoint returns transaction data', function() {

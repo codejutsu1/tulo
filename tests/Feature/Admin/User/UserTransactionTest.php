@@ -26,7 +26,7 @@ test('user can not access the User Transaction endpoint', function () {
 
 test('Unauthenticated user can not access the User Transaction endpoint', function () {
     $response = $this->get('/api/v1/admin/users/'.$this->user1->user->identifier.'/transactions')
-                    ->assertStatus(302);
+                    ->assertFound();
 });
 
 test('User Transaction returns all transactions associated to a user', function() {

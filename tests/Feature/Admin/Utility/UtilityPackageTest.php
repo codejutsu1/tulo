@@ -22,7 +22,7 @@ test('user can not access the Utility Package endpoint', function () {
 
 test('Unauthenticated user can not access the Utility Package endpoint', function () {
     $response = $this->get('/api/v1/admin/utilities/1/packages')
-                    ->assertStatus(302);
+                    ->assertFound();
 });
 
 test('Utility endpoints returns the first packages', function() {

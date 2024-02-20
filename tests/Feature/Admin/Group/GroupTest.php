@@ -16,7 +16,7 @@ test('admin can access the Group endpoint', function () {
 
 test('unauthenticated users can not access the Group endpoint', function(){
     $response = $this->get(route('group'))
-                        ->assertStatus(302);
+                        ->assertFound();
 });
 
 test('authenticated users cannot access the Group endpoint', function(){

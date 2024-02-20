@@ -26,7 +26,7 @@ test('user can not access the Transaction Package endpoint', function () {
 
 test('Unauthenticated user can not access the Transaction Package endpoint', function () {
     $response = $this->get('/api/v1/admin/transactions/'.$this->package1->identifier.'/packages')
-                    ->assertStatus(302);
+                    ->assertFound();
 });
 
 test('Transaction Package endpoint returns the package associated with a transaction', function() {

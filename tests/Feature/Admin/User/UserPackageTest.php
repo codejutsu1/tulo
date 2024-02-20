@@ -26,7 +26,7 @@ test('user can not access the User Package endpoint', function () {
 
 test('Unauthenticated user can not access the User Package endpoint', function () {
     $response = $this->get('/api/v1/admin/users/'.$this->user1->user->identifier.'/packages')
-                    ->assertStatus(302);
+                    ->assertFound();
 });
 
 test('User Package returns all packages associated to a user', function() {

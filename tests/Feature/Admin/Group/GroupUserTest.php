@@ -23,7 +23,7 @@ test('user can not access the Group User endpoint', function () {
 
 test('Unauthenticated user can not access the Group User endpoint', function () {
     $response = $this->get('/api/v1/admin/groups/1/users')
-                    ->assertStatus(302);
+                    ->assertFound();
 });
 
 test('Group User endpoint returns users associated with data group', function(){

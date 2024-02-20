@@ -22,7 +22,7 @@ test('user can not access the User Role endpoint', function () {
 
 test('Unauthenticated user can not access the User Role endpoint', function () {
     $response = $this->get('/api/v1/admin/users/'.$this->user->identifier.'/roles')
-                    ->assertStatus(302);
+                    ->assertFound();
 });
 
 test('User Role endpoint returns the role associated to a user', function() {

@@ -22,7 +22,7 @@ test('user can not access the Group Package endpoint', function () {
 
 test('Unauthenticated user can not access the Group Package endpoint', function () {
     $response = $this->get('/api/v1/admin/groups/1/packages')
-                    ->assertStatus(302);
+                    ->assertFound();
 });
 
 test('Group package endpoint returns data packages', function(){

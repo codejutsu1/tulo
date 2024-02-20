@@ -16,7 +16,7 @@ test('admin can access the Utility endpoint', function () {
 
 test('unauthenticated users can not access the Utility endpoint', function(){
     $response = $this->get(route('utility'))
-                        ->assertStatus(302);
+                        ->assertFound();
 });
 
 test('authenticated users cannot access the Utility endpoint', function(){

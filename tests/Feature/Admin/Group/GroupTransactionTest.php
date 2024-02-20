@@ -24,7 +24,7 @@ test('user can not access the Group Transaction endpoint', function () {
 
 test('Unauthenticated user can not access the Group Transaction endpoint', function () {
     $response = $this->get('/api/v1/admin/groups/1/transactions')
-                    ->assertStatus(302);
+                    ->assertFound();
 });
 
 test('Group Transaction endpoint returns transactions associated with data group', function() {    
