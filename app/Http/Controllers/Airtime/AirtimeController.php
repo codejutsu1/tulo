@@ -13,6 +13,10 @@ use App\Http\Requests\StoreAirtimeRequest;
 
 class AirtimeController extends Controller
 {
+    public function __construct(
+        private AirtimeService $airtimeService
+    ){}
+    
     public function store(StoreAirtimeRequest $request)
     {
         $response = $airtimeService->buyAirtime($request->validated());

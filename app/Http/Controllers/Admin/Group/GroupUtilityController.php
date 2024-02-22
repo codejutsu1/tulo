@@ -11,6 +11,6 @@ class GroupUtilityController extends Controller
 {
     public function index(Group $group)
     {
-        return $this->success(UtilityResource::collection($group->utilities));
+        return $this->success(UtilityResource::collection($group->utilities()->get()->unique('name')));
     }
 }
