@@ -16,7 +16,7 @@ class NetworkProviderController extends Controller
 
     public function index(CheckNumberRequest $request)
     {
-        $networkProvider = $this->phoneService->networkProvider($request->number);
+        $networkProvider = $this->phoneService->networkProvider($request->phoneNumber);
 
         return $this->success(['networkProvider' => $networkProvider]);
     }

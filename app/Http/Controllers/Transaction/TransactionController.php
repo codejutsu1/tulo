@@ -28,6 +28,6 @@ class TransactionController extends Controller
      */
     public function show(Transaction $transaction)
     {
-        return $this->success(new TransactionResource($transactions));
+        return $this->success(new TransactionResource($transaction));
     }
 }

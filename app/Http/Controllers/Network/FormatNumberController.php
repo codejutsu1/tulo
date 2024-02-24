@@ -16,7 +16,7 @@ class FormatNumberController extends Controller
 
     public function index(CheckNumberRequest $request)
     {
-        $formattedNumber = $this->phoneService->formatNumber($request->number);
+        $formattedNumber = $this->phoneService->formatNumber($request->phoneNumber);
 
         return $this->success(['number' => $formattedNumber]); //09122233356
     }
