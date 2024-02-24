@@ -17,7 +17,7 @@ class VerificationController extends Controller
         $user = User::find($request->route('id'));
 
         if ($user->hasVerifiedEmail()) {
-            return $this->success('Email Already Verified.');
+            return $this->success('Email Already Verified.', 422);
         }
 
         if ($user->markEmailAsVerified()) {
@@ -30,7 +30,7 @@ class VerificationController extends Controller
     public function sendVerificationMail() 
     {
         if(auth()->user()->hasVerifiedEmail()){
-            return $this->message('Your Email has been Verified.');
+            return $this->message('Your Email has been Verified.', 422);
         }
 
         auth()->user()->sendEmailVerificationNotification();
