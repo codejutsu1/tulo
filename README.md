@@ -1,18 +1,47 @@
 ## A FinTech api for airtime and utility bills. 
 
-Purchase Airtime and data 
-- MTN
-- Airtel
-- Glo
-- 9Mobile
+### About Tulo API
 
-Renew your CableTv Subscription 
-- DSTV
-- GoTV
-- Startimes
+This is the backend API for:
 
-Pay your electricity bills
+- Purchase Airtime and data 
+    - MTN
+    - Airtel
+    - Glo
+    - 9Mobile
+
+- Renew your CableTv Subscription 
+    - DSTV
+    - GoTV
+    - Startimes
+
+- Pay your electricity bills
 
 We collect Payment with [Paystack](https://paystack.com)
 
-# How to run the application
+## Language and Framework
+
+This project was developed using the [Laravel 10.x](https://laravel.com) PHP framework.
+
+## How to run the application
+
+## API Documentation
+
+This application has been documented using Postman Here.
+
+## Run the tests
+
+- To run the test, simply
+
+```
+php artisan test
+```
+
+or
+
+```
+./vendor/bin/pest
+```
+
+- &#128526;
+
