@@ -54,7 +54,7 @@ This project was developed using the [Laravel 10.x](https://laravel.com) PHP fra
     ```
     php artisan serve
     ```
-    > This command will run the application on localhost:8000 or 127.0.0.1:8000 on your browser
+    > This command will run the application on `localhost:8000` or `127.0.0.1:8000` on your browser
 
 ### For Docker
 
