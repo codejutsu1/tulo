@@ -2,7 +2,7 @@
 
 ### About Tulo API
 
-This is the backend API for:
+This is the backend API t0:
 
 - Purchase Airtime and data 
     - MTN
@@ -33,15 +33,15 @@ This application has been documented using Postman Here.
 
 - To run the test, simply
 
-```
-php artisan test
-```
+    ```
+    php artisan test
+    ```
 
-or
+    or
 
-```
-./vendor/bin/pest
-```
+    ```
+    ./vendor/bin/pest
+    ```
 
 - &#128526;
 
