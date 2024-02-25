@@ -110,15 +110,16 @@ Route::group(['prefix' => 'v1'], function(){
             Route::apiResource('roles.users', RoleUserController::class)->only('index');
 
             Route::apiResource('groups.users', GroupUserController::class)->only('index');
-            Route::apiResource('groups.packages', GroupPackageController::class)->only('index');
-            Route::apiResource('groups.utilities', GroupUtilityController::class)->only('index');
             Route::apiResource('groups.transactions', GroupTransactionController::class)->only('index');
 
             Route::apiResource('utilities.groups', UtilityGroupController::class)->only('index');
-            Route::apiResource('utilities.packages', UtilityPackageController::class)->only('index');
             Route::apiResource('utilities.transactions', UtilityTransactionController::class)->only('index');
             Route::apiResource('utilities.users', UtilityUserController::class)->only('index');
         });
+
+        Route::apiResource('utilities.packages', UtilityPackageController::class)->only('index');
+        Route::apiResource('groups.packages', GroupPackageController::class)->only('index');
+        Route::apiResource('groups.utilities', GroupUtilityController::class)->only('index');
 
         //Airtime
         Route::apiResource('airtimes', AirtimeController::class)->only(['store']);
