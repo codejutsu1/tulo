@@ -1,8 +1,8 @@
-## A FinTech api for airtime and utility bills. 
+## A FinTech API for Airtime and utility bills. 
 
 ### About Tulo API
 
-This is the backend API t0:
+This is the backend API to:
 
 - Purchase Airtime and data 
     - MTN
@@ -25,9 +25,13 @@ This project was developed using the [Laravel 10.x](https://laravel.com) PHP fra
 
 ## How to run the application
 
+> Coming soon.
+
 ## API Documentation
 
-> This application has been documented using Postman Here.
+This application has been documented using Postman Here.
+
+> Coming soon.
 
 ## Run the tests
 
