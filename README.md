@@ -68,7 +68,7 @@ This project was developed using the [Laravel 10.x](https://laravel.com) PHP fra
         laravelsail/php83-composer:latest \
         composer install --ignore-platform-reqs
     ```
-- To run docker containers
+- To run the following docker containers
     - Laravel 10
     - MySQL 8.0
     - PHPMyAdmin
@@ -95,7 +95,7 @@ This project was developed using the [Laravel 10.x](https://laravel.com) PHP fra
     php artisan key:generate
     php artisan migrate:fresh --seed
     ```
-    > The application runs on `localhost` on the browser.
+    > The application already runs on `localhost` on the browser.
 
 - To bring down the containers
 
