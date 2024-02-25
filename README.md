@@ -69,10 +69,10 @@ This project was developed using the [Laravel 10.x](https://laravel.com) PHP fra
         composer install --ignore-platform-reqs
     ```
 - To run the following docker containers
-    - Laravel 10
+    - Laravel 10 (localhost)
     - MySQL 8.0
-    - PHPMyAdmin
-    - Mailhog
+    - PHPMyAdmin (localhost:8080)
+    - Mailhog (localhost:8025)
 
     ```
     ./vendor/bin/sail up -d
@@ -105,9 +105,8 @@ This project was developed using the [Laravel 10.x](https://laravel.com) PHP fra
 
 ## API Documentation
 
-This application has been documented using Postman Here.
+This application has been documented using [Postman Here](https://documenter.getpostman.com/view/29425162/2sA2rDvLEo).
 
-> Coming soon.
 
 ## Run the tests
 
