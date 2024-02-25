@@ -4,13 +4,14 @@ namespace App\Services;
 
 use App\Traits\Vtu;
 use Illuminate\Http\Request;
+use App\Traits\HttpResponses;
 use App\Services\PhoneService;
 use App\Services\PaymentService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Http;
 
 class AirtimeService {
-    use Vtu;
+    use Vtu, HttpResponses;
 
     public function __construct(
         private PhoneService $phoneService,
@@ -19,8 +20,8 @@ class AirtimeService {
     
     public function buyAirtime($request): JsonResponse
     {
-        $phone = $phoneService->formatNumber($request['phoneNumber']);
-        $network_id = $phoneService->networkProvider($phone);
+        $phone = $this->phoneService->formatNumber($request['phoneNumber']);
+        $network_id = $this->phoneService->networkProvider($phone);
 
 
         $data = [

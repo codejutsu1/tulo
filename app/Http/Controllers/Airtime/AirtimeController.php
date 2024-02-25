@@ -19,7 +19,7 @@ class AirtimeController extends Controller
     
     public function store(StoreAirtimeRequest $request)
     {
-        $response = $airtimeService->buyAirtime($request->validated());
+        $response = $this->airtimeService->buyAirtime($request->validated());
 
         return $response;
     }

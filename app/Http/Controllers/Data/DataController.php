@@ -25,10 +25,8 @@ class DataController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreDataRequest $request)
+    public function store(StoreDataRequest $request, DataService $dataService)
     {   
-        $dataService = new DataService();
-        
         $response = $dataService->buyData($request->validated());
 
         return $response;

@@ -2,28 +2,27 @@
 
 namespace App\Services;
 
-use App\Traits\Vtu;
+use App\Models\Package;
+use App\Traits\HttpResponses;
 use App\Services\PhoneService;
 use App\Services\PaymentService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Http;
 
 class CableService {
-    use Vtu;
-    
-    public function __construct(
-        private PhoneService $phoneService,
-        private PaymentService $paymentService,
-    ){}
+    use HttpResponses;
     
     public function buyCable($request): JsonResponse
     {
-        $phoneNumber = $this->phoneService->formatNumber($request['phoneNumber']);
+        $phoneService = new PhoneService();
+        $paymentService = new PaymentService();
+
+        $phoneNumber = $phoneService->formatNumber($request['phoneNumber']);
 
         $amount = Package::where('variation_id', $request['variation_id'])->value('price');
 
         $data = [
-            'amount' => $amount * 100,
+            'amount' => 1000000, //amount shouldn't be null
             'reference' => paystack()->genTranxRef(),
             'email' => 'danieldunu001@gmail.com', //Authenticated User
             'currency' => 'NGN',
@@ -37,7 +36,7 @@ class CableService {
             ],
         ];
 
-        $paymentResponse = $this->paymentService->redirectToGateway($data);
+        $paymentResponse = $paymentService->redirectToGateway($data);
 
         return $this->success(['paymentUrl' => $paymentResponse->url]);
     }

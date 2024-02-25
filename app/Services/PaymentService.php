@@ -12,17 +12,13 @@ use Illuminate\Support\Facades\Redirect;
 
 class PaymentService {
     use HttpResponses;
-    public function __construct(
-        private VtuService $vtuService, 
-        private ErrorService $errorService,
-        private TransactionService $transactionService
-    ){}
 
     public function redirectToGateway($data)
     {
         try{
             return Paystack::getAuthorizationUrl($data);
         }catch(\Exception $e) {
+            dd($e);
             return $this->error(['msg'=>'The paystack token has expired. Please refresh the page and try again.', 'type'=>'error'], 422);
         }        
     }
@@ -30,6 +26,10 @@ class PaymentService {
 
     public function storePayment($payment): JsonResponse
     {
+        $vtuService = new VtuService();
+        $errorService = new ErrorService();
+        $transactionService = new TransactionService();
+
         $response = $this->vtuService->purchaseVtu($payment); 
         
         if($response['code'] != 'success') return $this->errorService->returnErrorMessages($response);

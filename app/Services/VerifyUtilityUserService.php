@@ -3,13 +3,12 @@
 namespace App\Services;
 
 use App\Traits\Vtu;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Http;
 
 class VerifyUtilityUserService {
     use Vtu;
 
-    public function verifyUser($request): JsonResponse
+    public function verifyUser($request)
     {
         $response = Http::get('https://vtu.ng/wp-json/api/v1/verify-customer', [
             'username' => $this->username(),
